@@ -30,7 +30,7 @@ public class UserMapper {
         UserDto userDto = new UserDto();
 
         userDto.setId(
-                (Long) user.getId()
+                user.getId()
         );
         userDto.setUsername(
                 user.getUsername()

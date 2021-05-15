@@ -23,31 +23,31 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping("/signUp")
-    public String registration(@Validated @RequestBody UserDto user) {
-        User newUser = userRepository.findByEmail(user.getEmail());
-        if (newUser == null) {
-            newUser = new User();
-            newUser.setUsername(
-                    user.getUsername()
+    public void registration(@RequestBody UserDto userDto) {
+        User user = userRepository.findByEmail(userDto.getEmail());
+        if (user == null) {
+            user = new User();
+            user.setUsername(
+                    userDto.getUsername()
             );
-            newUser.setPassword(
-                    passwordEncoder.encode(user.getPassword())
+            user.setPassword(
+                    passwordEncoder.encode(userDto.getPassword())
             );
-            newUser.setEmail(
-                    user.getEmail()
+            user.setEmail(
+                    userDto.getEmail()
             );
-            newUser.setFirstName(
-                    user.getFirstName()
+            user.setFirstName(
+                    userDto.getFirstName()
             );
-            newUser.setRole(
+            user.setRole(
                     Role.USER
             );
-            newUser.setEnabled(true);
-            userRepository.save(newUser);
-            return "Signed up successfully";
+            // TODO убрать после подтверждения email
+            user.setEnabled(true);
+            userRepository.save(user);
 
         } else {
-            return "User with this email exists";
+            throw new RuntimeException("User with this email exists");
         }
 
 

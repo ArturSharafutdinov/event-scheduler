@@ -1,28 +1,30 @@
 package ru.ivanov.evgeny.eventscheduler.persistence.domain;
 
 
-
-import lombok.Data;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.Role;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="USERS")
+@Table(name = "USERS")
 @AttributeOverride(name = "id", column = @Column(name = "USER_ID"))
 public class User extends LongIdEntity {
 
-    @Column(name = "USERNAME",nullable = false)
+    @Column(name = "USERNAME", nullable = false)
     private String username;
 
-    @Column(name = "PASSWORD",nullable = false)
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @Column(name = "EMAIL",nullable = false)
+    @Column(name = "EMAIL", nullable = false)
     private String email;
 
-    @Column(name = "FIRST_NAME",nullable = false)
+    @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
 
     @Column(name = "IS_ENABLED")

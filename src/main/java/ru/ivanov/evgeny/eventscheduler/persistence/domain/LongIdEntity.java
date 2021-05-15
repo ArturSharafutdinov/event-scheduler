@@ -1,11 +1,15 @@
 package ru.ivanov.evgeny.eventscheduler.persistence.domain;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public abstract class LongIdEntity{
+public abstract class LongIdEntity implements Identified {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
