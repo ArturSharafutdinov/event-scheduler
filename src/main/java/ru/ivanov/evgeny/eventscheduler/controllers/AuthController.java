@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.ivanov.evgeny.eventscheduler.persistence.dto.AuthUserDto;
-import ru.ivanov.evgeny.eventscheduler.persistence.dto.JwtUserDto;
+import ru.ivanov.evgeny.eventscheduler.persistence.dto.AuthAccountDto;
+import ru.ivanov.evgeny.eventscheduler.persistence.dto.JwtAccountDto;
 import ru.ivanov.evgeny.eventscheduler.security.jwt.TokenProvider;
 
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/auth")
-    public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto user) {
+    public ResponseEntity<Object> login(@Validated @RequestBody AuthAccountDto user) {
 
 
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -43,7 +43,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = tokenProvider.createToken(authentication, true);
-        final JwtUserDto jwtUser = (JwtUserDto) authentication.getPrincipal();
+        final JwtAccountDto jwtUser = (JwtAccountDto) authentication.getPrincipal();
 
         Map<String, Object> authInfo = new HashMap<>();
 

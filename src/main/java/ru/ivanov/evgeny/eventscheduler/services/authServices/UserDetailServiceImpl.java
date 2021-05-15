@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import ru.ivanov.evgeny.eventscheduler.persistence.domain.User;
+import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 
 import javax.transaction.Transactional;
 import java.util.Objects;
@@ -19,7 +19,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) {
 
-        final User user = userService.findByEmail(email);
+        final Account user = userService.findByEmail(email);
 
         if (Objects.isNull(user)) {
             throw new IllegalArgumentException("No user found with email: " + email);

@@ -1,21 +1,21 @@
 package ru.ivanov.evgeny.eventscheduler.services.authServices;
 
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.ivanov.evgeny.eventscheduler.persistence.domain.User;
-import ru.ivanov.evgeny.eventscheduler.persistence.dto.UserDto;
+import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
+import ru.ivanov.evgeny.eventscheduler.persistence.dto.AccountDto;
 
 public interface UserService {
 
 
-    void submit(UserDto userDto);
+    void submit(AccountDto accountDto);
 
-    UserDto getUserById(Long id);
+    AccountDto getUserById(Long id);
 
-    UserDetails createUserDetails(User user);
+    UserDetails createUserDetails(Account user);
 
-    User findByEmail(String email);
+    Account findByEmail(String email);
 
-    Long register(UserDto userDto);
+    Long register(AccountDto accountDto);
 
     boolean checkUserForExistsByEmail(String email);
 }

@@ -2,7 +2,7 @@ package ru.ivanov.evgeny.eventscheduler.persistence.dto;
 
 
 
-public class UserDto extends LongIdEntityDto {
+public class AccountDto extends LongIdEntityDto {
 
     private String username;
 

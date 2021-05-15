@@ -3,48 +3,47 @@ package ru.ivanov.evgeny.eventscheduler.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.ivanov.evgeny.eventscheduler.persistence.dao.UserRepository;
-import ru.ivanov.evgeny.eventscheduler.persistence.domain.User;
-import ru.ivanov.evgeny.eventscheduler.persistence.dto.UserDto;
+import ru.ivanov.evgeny.eventscheduler.persistence.dao.AccountRepository;
+import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
+import ru.ivanov.evgeny.eventscheduler.persistence.dto.AccountDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.Role;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class UserController {
+public class AccountController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private UserRepository userRepository;
+    private AccountRepository accountRepository;
 
     @PostMapping("/signUp")
-    public void registration(@RequestBody UserDto userDto) {
-        User user = userRepository.findByEmail(userDto.getEmail());
+    public void registration(@RequestBody AccountDto accountDto) {
+        Account user = accountRepository.findByEmail(accountDto.getEmail());
         if (user == null) {
-            user = new User();
+            user = new Account();
             user.setUsername(
-                    userDto.getUsername()
+                    accountDto.getUsername()
             );
             user.setPassword(
-                    passwordEncoder.encode(userDto.getPassword())
+                    passwordEncoder.encode(accountDto.getPassword())
             );
             user.setEmail(
-                    userDto.getEmail()
+                    accountDto.getEmail()
             );
             user.setFirstName(
-                    userDto.getFirstName()
+                    accountDto.getFirstName()
             );
             user.setRole(
                     Role.USER
             );
             // TODO убрать после подтверждения email
             user.setEnabled(true);
-            userRepository.save(user);
+            accountRepository.save(user);
 
         } else {
             throw new RuntimeException("User with this email exists");

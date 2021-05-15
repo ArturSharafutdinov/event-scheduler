@@ -1,6 +1,8 @@
 package ru.ivanov.evgeny.eventscheduler.persistence.domain;
 
 
+import ru.ivanov.evgeny.eventscheduler.persistence.common.LongIdEntity;
+import ru.ivanov.evgeny.eventscheduler.persistence.domain.Event.Event;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.Role;
 
 import javax.persistence.AttributeOverride;
@@ -13,7 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USERS")
 @AttributeOverride(name = "id", column = @Column(name = "USER_ID"))
-public class User extends LongIdEntity {
+public class Account extends LongIdEntity {
 
     @Column(name = "USERNAME", nullable = false)
     private String username;

@@ -1,51 +1,51 @@
 package ru.ivanov.evgeny.eventscheduler.services.mappers;
 
 import org.springframework.stereotype.Component;
-import ru.ivanov.evgeny.eventscheduler.persistence.domain.User;
-import ru.ivanov.evgeny.eventscheduler.persistence.dto.UserDto;
+import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
+import ru.ivanov.evgeny.eventscheduler.persistence.dto.AccountDto;
 
 @Component
 public class UserMapper {
 
-    public User mapToEntity(UserDto userDto) {
-        User user = new User();
+    public Account mapToEntity(AccountDto accountDto) {
+        Account user = new Account();
 
         user.setUsername(
-                userDto.getUsername()
+                accountDto.getUsername()
         );
         user.setPassword(
-                userDto.getPassword()
+                accountDto.getPassword()
         );
         user.setEmail(
-                userDto.getEmail()
+                accountDto.getEmail()
         );
         user.setFirstName(
-                userDto.getFirstName()
+                accountDto.getFirstName()
         );
 
         return user;
     }
 
-    public UserDto mapToDto(User user) {
-        UserDto userDto = new UserDto();
+    public AccountDto mapToDto(Account user) {
+        AccountDto accountDto = new AccountDto();
 
-        userDto.setId(
+        accountDto.setId(
                 user.getId()
         );
-        userDto.setUsername(
+        accountDto.setUsername(
                 user.getUsername()
         );
-        userDto.setPassword(
+        accountDto.setPassword(
                 user.getPassword()
         );
-        userDto.setEmail(
+        accountDto.setEmail(
                 user.getEmail()
         );
-        userDto.setFirstName(
+        accountDto.setFirstName(
                 user.getFirstName()
         );
 
 
-        return userDto;
+        return accountDto;
     }
 }

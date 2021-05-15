@@ -1,4 +1,4 @@
-package ru.ivanov.evgeny.eventscheduler.persistence.domain;
+package ru.ivanov.evgeny.eventscheduler.persistence.common;
 
 import java.io.Serializable;
 

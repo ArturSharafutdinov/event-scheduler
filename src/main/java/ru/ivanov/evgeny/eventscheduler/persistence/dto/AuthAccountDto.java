@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AuthUserDto {
+public class AuthAccountDto {
 
     private String email;
 

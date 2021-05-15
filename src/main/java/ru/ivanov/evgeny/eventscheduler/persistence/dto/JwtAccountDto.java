@@ -11,7 +11,7 @@ import ru.ivanov.evgeny.eventscheduler.persistence.enums.Role;
 
 import java.util.*;
 
-public class JwtUserDto implements UserDetails {
+public class JwtAccountDto implements UserDetails {
 
     private final Long id;
 
@@ -25,7 +25,7 @@ public class JwtUserDto implements UserDetails {
     @JsonIgnore
     private Role role;
 
-    public JwtUserDto(Long id, String username, String password, boolean isEnabled, Role role) {
+    public JwtAccountDto(Long id, String username, String password, boolean isEnabled, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
