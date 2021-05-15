@@ -5,4 +5,55 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
+    <changeSet id="1" author="Turik">
+
+        <createTable tableName="USER">
+            <column name="USER_ID" type="bigint">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="USERNAME" type="varchar(255)">
+                <constraints primaryKey="false" nullable="false" />
+            </column>
+
+            <column name="PASSWORD" type="varchar(255)">
+                <constraints primaryKey="false" nullable="false" />
+            </column>
+
+            <column name="EMAIL" type="varchar(255)">
+                <constraints primaryKey="false" nullable="false" />
+            </column>
+
+            <column name="FIRST_NAME" type="varchar(255)">
+                <constraints primaryKey="false" nullable="false" />
+            </column>
+
+            <column name="LAST_NAME" type="varchar(255)">
+                <constraints primaryKey="false" nullable="false" />
+            </column>
+
+            <column name="IS_ENABLED" type="boolean">
+                <constraints primaryKey="false" nullable="false" />
+            </column>
+            
+            <column name="ROLE" type="varchar(255)">
+                <constraints
+                        foreignKeyName="OWNER_ID"
+                        references="OWNER(ID)" />
+            </column>
+        </createTable>
+
+
+        <createTable tableName="OWNER">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+
+            <column name="CAR_ID" type="bigint">
+                <constraints
+                        foreignKeyName="CAR_ID"
+                        references="CAR(ID)" />
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

@@ -29,7 +29,4 @@ public abstract class LongIdEntity implements Identified{
     public boolean equals(Object obj) {
         return (obj instanceof LongIdEntity) && (id != null) && (id.equals(((LongIdEntity) obj).getId()));
     }
-
-
-
 }
