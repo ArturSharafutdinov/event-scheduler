@@ -5,10 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="1" author="Turik">
-
-        <createTable tableName="USERS">
-            <column name="USER_ID" type="bigint" autoIncrement="true">
+    <changeSet id="1" author="Artur">
+        <createTable tableName="ACCOUNT">
+            <column name="ACCOUNT_ID" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="USERNAME" type="varchar(64)">
@@ -26,14 +25,98 @@
             <column name="IS_ENABLED" type="boolean">
                 <constraints nullable="false"/>
             </column>
-            <column name="ROLE" type="VARCHAR(255)">
+            <column name="ROLE" type="varchar(25)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet id="2" author="Turik">
-        <modifyDataType tableName="USERS" columnName="PASSWORD" newDataType="VARCHAR(500)"/>
+    <changeSet id="2" author="Artur">
+        <modifyDataType tableName="USERS" columnName="PASSWORD" newDataType="varchar(500)"/>
     </changeSet>
+
+
+    <changeSet id="3" author="Artur">
+        <createTable tableName="EVENT">
+            <column name="EVENT_ID" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OWNER_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_event_accountId" references="ACCOUNT(ACCOUNT_ID)"/>
+            </column>
+            <column name="CREATED_TIME" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="START_TIME" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FINISH_TIME" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FINISHED_TIME" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+            <column name="MAX_NUMBER_OF_PARTICIPANTS" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_PRIVATE" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COORDINATES" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="Artur">
+        <createTable tableName="CATEGORY">
+            <column name="CATEGORY_ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="Artur">
+        <createTable tableName="EVENT_CATEGORY">
+            <column name="EVENT_CATEGORY_ID" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="EVENT_ID" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_event_category_eventId" references="EVENT(EVENT_ID)"/>
+            </column>
+            <column name="CATEGORY_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_event_category_categoryId"
+                             references="CATEGORY(CATEGORY_ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="Artur">
+        <createTable tableName="EVENT_MEMBER">
+            <column name="EVENT_MEMBER_ID" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="EVENT_ID" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_event_member_eventId" references="EVENT(EVENT_ID)"/>
+            </column>
+            <column name="ACCOUNT_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_event_account_accountId"
+                             references="ACCOUNT(ACCOUNT_ID)"/>
+            </column>
+            <column name="ROLE" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 
 </databaseChangeLog>

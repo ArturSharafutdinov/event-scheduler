@@ -1,4 +1,4 @@
-package ru.ivanov.evgeny.eventscheduler.persistence.common;
+package ru.ivanov.evgeny.eventscheduler.persistence.common.identity;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
