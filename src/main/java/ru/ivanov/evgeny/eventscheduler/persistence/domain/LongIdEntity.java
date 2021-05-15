@@ -5,14 +5,13 @@ import java.io.Serializable;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public abstract class LongIdEntity implements Identified{
+public abstract class LongIdEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Override
-    public Serializable getId() {
+    public Long getId() {
         return id;
     }
 

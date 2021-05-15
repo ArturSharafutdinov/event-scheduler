@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
                 user.getEmail(),
                 user.getPassword(),
                 user.getEnabled(),
-                user.getRoles()
+                user.getRole()
         );
     }
 
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("There is an user with that email address:" + userDto.getEmail());
 
         User user = userMapper.mapToEntity(userDto);
-        user.setRoles(SetUtils.hashSet(Role.ADMIN));
+        user.setRole(Role.ADMIN);
         user.setEnabled(true);
         user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
 

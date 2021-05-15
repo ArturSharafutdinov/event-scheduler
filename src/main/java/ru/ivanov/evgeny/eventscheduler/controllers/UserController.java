@@ -1,7 +1,6 @@
 package ru.ivanov.evgeny.eventscheduler.controllers;
 
 
-import org.apache.commons.collections4.SetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
@@ -16,16 +15,15 @@ import ru.ivanov.evgeny.eventscheduler.persistence.enums.Role;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class SignUpController {
+public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository userRepository;
 
-
-    @PostMapping("/registration")
-    public String registration(@Validated @RequestBody UserDto user){
+    @PostMapping("/signUp")
+    public String registration(@Validated @RequestBody UserDto user) {
         User newUser = userRepository.findByEmail(user.getEmail());
         if (newUser == null) {
             newUser = new User();
@@ -39,20 +37,16 @@ public class SignUpController {
                     user.getEmail()
             );
             newUser.setFirstName(
-                  user.getFirstName()
+                    user.getFirstName()
             );
-            newUser.setMiddleName(
-                   user.getLastName()
-            );
-            newUser.setRoles(
-                    SetUtils.hashSet(Role.USER)
+            newUser.setRole(
+                    Role.USER
             );
             newUser.setEnabled(true);
-             userRepository.save(newUser);
-             return "Signed up successfully";
+            userRepository.save(newUser);
+            return "Signed up successfully";
 
-        }
-        else{
+        } else {
             return "User with this email exists";
         }
 

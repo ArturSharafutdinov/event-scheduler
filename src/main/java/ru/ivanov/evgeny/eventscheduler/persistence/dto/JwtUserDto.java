@@ -3,6 +3,8 @@ package ru.ivanov.evgeny.eventscheduler.persistence.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.collection.UnmodifiableCollection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.Role;
@@ -21,20 +23,22 @@ public class JwtUserDto implements UserDetails {
     private final boolean isEnabled;
 
     @JsonIgnore
-    private Set<Role> roles;
+    private Role role;
 
-    public JwtUserDto(Long id, String username, String password, boolean isEnabled, Set<Role> roles) {
+    public JwtUserDto(Long id, String username, String password, boolean isEnabled, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.isEnabled = isEnabled;
-        this.roles = roles;
+        this.role = role;
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return new HashSet<>(){{
+            add(role);
+        }};
     }
 
     @Override
@@ -75,11 +79,11 @@ public class JwtUserDto implements UserDetails {
         return id;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

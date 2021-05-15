@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="USERS")
+@AttributeOverride(name = "id", column = @Column(name = "USER_ID"))
 public class User extends LongIdEntity {
 
     @Column(name = "USERNAME",nullable = false)
@@ -24,17 +25,13 @@ public class User extends LongIdEntity {
     @Column(name = "FIRST_NAME",nullable = false)
     private String firstName;
 
-    @Column(name = "LAST_NAME",nullable = false)
-    private String middleName;
-
     @Column(name = "IS_ENABLED")
     private Boolean isEnabled;
 
-    @ElementCollection(targetClass = Role.class)
-    @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"))
-    @Column(name = "ROLE", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+    @Column(name = "ROLE")
+    private Role role;
+
 
     public String getUsername() {
         return username;
@@ -68,14 +65,6 @@ public class User extends LongIdEntity {
         this.firstName = firstName;
     }
 
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
     public Boolean getEnabled() {
         return isEnabled;
     }
@@ -84,11 +73,11 @@ public class User extends LongIdEntity {
         isEnabled = enabled;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

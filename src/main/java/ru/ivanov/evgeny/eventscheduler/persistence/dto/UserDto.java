@@ -12,8 +12,6 @@ public class UserDto extends LongIdEntityDto {
 
     private String firstName;
 
-    private String lastName;
-
     public String getUsername() {
         return username;
     }
@@ -46,11 +44,4 @@ public class UserDto extends LongIdEntityDto {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 }

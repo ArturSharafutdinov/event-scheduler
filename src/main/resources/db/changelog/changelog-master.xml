@@ -7,53 +7,33 @@
 
     <changeSet id="1" author="Turik">
 
-        <createTable tableName="USER">
+        <createTable tableName="USERS">
             <column name="USER_ID" type="bigint">
-                <constraints primaryKey="true" nullable="false" />
+                <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="USERNAME" type="varchar(255)">
-                <constraints primaryKey="false" nullable="false" />
+            <column name="USERNAME" type="varchar(64)">
+                <constraints nullable="false"/>
             </column>
-
-            <column name="PASSWORD" type="varchar(255)">
-                <constraints primaryKey="false" nullable="false" />
+            <column name="PASSWORD" type="varchar(50)">
+                <constraints nullable="false"/>
             </column>
-
             <column name="EMAIL" type="varchar(255)">
-                <constraints primaryKey="false" nullable="false" />
+                <constraints nullable="false"/>
             </column>
-
             <column name="FIRST_NAME" type="varchar(255)">
-                <constraints primaryKey="false" nullable="false" />
+                <constraints nullable="false"/>
             </column>
-
-            <column name="LAST_NAME" type="varchar(255)">
-                <constraints primaryKey="false" nullable="false" />
-            </column>
-
             <column name="IS_ENABLED" type="boolean">
-                <constraints primaryKey="false" nullable="false" />
+                <constraints nullable="false"/>
             </column>
-            
-            <column name="ROLE" type="varchar(255)">
-                <constraints
-                        foreignKeyName="OWNER_ID"
-                        references="OWNER(ID)" />
+            <column name="ROLE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
 
-
-        <createTable tableName="OWNER">
-            <column name="ID" type="bigint">
-                <constraints primaryKey="true" nullable="false" />
-            </column>
-
-            <column name="CAR_ID" type="bigint">
-                <constraints
-                        foreignKeyName="CAR_ID"
-                        references="CAR(ID)" />
-            </column>
-        </createTable>
+    <changeSet id="2" author="Turik">
+        <modifyDataType tableName="USERS" columnName="PASSWORD" newDataType="VARCHAR(500)"/>
     </changeSet>
 
 </databaseChangeLog>

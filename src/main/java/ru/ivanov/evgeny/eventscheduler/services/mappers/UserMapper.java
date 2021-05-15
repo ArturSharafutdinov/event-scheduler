@@ -22,9 +22,6 @@ public class UserMapper {
         user.setFirstName(
                 userDto.getFirstName()
         );
-        user.setMiddleName(
-                userDto.getLastName()
-        );
 
         return user;
     }
@@ -46,9 +43,6 @@ public class UserMapper {
         );
         userDto.setFirstName(
                 user.getFirstName()
-        );
-        userDto.setLastName(
-                user.getMiddleName()
         );
 
 
