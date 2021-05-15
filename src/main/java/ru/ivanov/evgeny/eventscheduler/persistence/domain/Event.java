@@ -2,12 +2,9 @@ package ru.ivanov.evgeny.eventscheduler.persistence.domain;
 
 
 import ru.ivanov.evgeny.eventscheduler.persistence.common.identity.UUIDEntity;
-import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "EVENT")
