@@ -32,7 +32,7 @@
     </changeSet>
 
     <changeSet id="2" author="Artur">
-        <modifyDataType tableName="USERS" columnName="PASSWORD" newDataType="varchar(500)"/>
+        <modifyDataType tableName="ACCOUNT" columnName="PASSWORD" newDataType="varchar(500)"/>
     </changeSet>
 
 
@@ -115,6 +115,22 @@
             <column name="ROLE" type="varchar(25)">
                 <constraints nullable="false"/>
             </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="7" author="eugene">
+        <createTable tableName="INVITE_REQUEST">
+            <column name="INVITE_REQUEST_ID" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="EVENT_ID" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_invite_request_eventId" references="EVENT(EVENT_ID)"/>
+            </column>
+            <column name="ACCOUNT_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_invite_request_accountId" references="ACCOUNT(ACCOUNT_ID)"/>
+            </column>
+            <column name="DESCRIPTION" type="varchar(256)"/>
+            <column name="INVITE_STATUS" type="varchar(64)"/>
         </createTable>
     </changeSet>
 

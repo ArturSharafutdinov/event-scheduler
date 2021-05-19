@@ -4,12 +4,9 @@ package ru.ivanov.evgeny.eventscheduler.persistence.domain;
 import ru.ivanov.evgeny.eventscheduler.persistence.common.identity.LongIdEntity;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.Role;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "ACCOUNT")
@@ -35,6 +32,8 @@ public class Account extends LongIdEntity {
     @Column(name = "ROLE")
     private Role role;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+    private Set<InviteRequest> inviteRequest = new HashSet<>();
 
     public String getUsername() {
         return username;
@@ -82,5 +81,13 @@ public class Account extends LongIdEntity {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<InviteRequest> getInviteRequest() {
+        return inviteRequest;
+    }
+
+    public void setInviteRequest(Set<InviteRequest> inviteRequest) {
+        this.inviteRequest = inviteRequest;
     }
 }

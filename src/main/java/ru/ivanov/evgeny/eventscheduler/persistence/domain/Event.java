@@ -2,11 +2,10 @@ package ru.ivanov.evgeny.eventscheduler.persistence.domain;
 
 
 import ru.ivanov.evgeny.eventscheduler.persistence.common.identity.UUIDEntity;
-import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -44,6 +43,9 @@ public class Event extends UUIDEntity {
 
     @Column(name = "COORDINATES")
     private String coordinates;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
+    private Set<InviteRequest> inviteRequest = new HashSet<>();
 
     public String getName() {
         return name;
@@ -125,4 +127,11 @@ public class Event extends UUIDEntity {
         this.coordinates = coordinates;
     }
 
+    public Set<InviteRequest> getInviteRequest() {
+        return inviteRequest;
+    }
+
+    public void setInviteRequest(Set<InviteRequest> inviteRequest) {
+        this.inviteRequest = inviteRequest;
+    }
 }

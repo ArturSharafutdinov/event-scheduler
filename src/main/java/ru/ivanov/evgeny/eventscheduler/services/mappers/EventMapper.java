@@ -1,9 +1,6 @@
 package ru.ivanov.evgeny.eventscheduler.services.mappers;
 
 
-import liquibase.pro.packaged.D;
-import org.springframework.stereotype.Component;
-import org.yaml.snakeyaml.util.ArrayUtils;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Event;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventDto;
 
@@ -22,7 +19,7 @@ public class EventMapper {
         event.setFinishTime(eventDto.getFinishTime());
 
         String coordinates = Arrays.stream(eventDto.getCoordinates())
-                .map(c -> c.toString())
+                .map(Object::toString)
                 .collect(Collectors.joining(" "));
 
         event.setCoordinates(coordinates);
