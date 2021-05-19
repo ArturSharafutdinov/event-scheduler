@@ -10,7 +10,7 @@ import java.util.Date;
 public class EventDateConverter implements AttributeConverter<LocalDateTime, Date> {
     @Override
     public Date convertToDatabaseColumn(LocalDateTime localDateTime) {
-        if(localDateTime!=null) {
+        if (localDateTime != null) {
             return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         }
         return null;
@@ -18,8 +18,8 @@ public class EventDateConverter implements AttributeConverter<LocalDateTime, Dat
 
     @Override
     public LocalDateTime convertToEntityAttribute(Date date) {
-        if(date!=null)
-        return LocalDateTime.ofInstant(date.toInstant(),ZoneId.systemDefault());
+        if (date != null)
+            return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
         return null;
     }
 }

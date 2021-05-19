@@ -6,7 +6,6 @@ import ru.ivanov.evgeny.eventscheduler.persistence.dto.AccountDto;
 
 public interface AccountService {
 
-
     void submit(AccountDto accountDto);
 
     Account getAccountById(Long id);

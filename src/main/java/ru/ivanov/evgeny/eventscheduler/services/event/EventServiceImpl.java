@@ -8,7 +8,6 @@ import ru.ivanov.evgeny.eventscheduler.persistence.dao.EventRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Event;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.EventMember;
-import ru.ivanov.evgeny.eventscheduler.persistence.dto.CategoryDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.EventRole;
 import ru.ivanov.evgeny.eventscheduler.services.auth.AccountService;

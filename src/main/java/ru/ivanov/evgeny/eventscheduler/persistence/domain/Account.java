@@ -4,12 +4,7 @@ package ru.ivanov.evgeny.eventscheduler.persistence.domain;
 import ru.ivanov.evgeny.eventscheduler.persistence.common.identity.LongIdEntity;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.Role;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ACCOUNT")

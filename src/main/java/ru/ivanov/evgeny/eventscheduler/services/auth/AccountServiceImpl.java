@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.AccountRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
-import ru.ivanov.evgeny.eventscheduler.persistence.dto.JwtAccountDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.AccountDto;
+import ru.ivanov.evgeny.eventscheduler.persistence.dto.JwtAccountDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.Role;
 import ru.ivanov.evgeny.eventscheduler.services.mappers.AccountMapper;
 

@@ -1,7 +1,6 @@
 package ru.ivanov.evgeny.eventscheduler.persistence.domain;
 
 
-import org.hibernate.annotations.CreationTimestamp;
 import ru.ivanov.evgeny.eventscheduler.persistence.common.converters.EventDateConverter;
 import ru.ivanov.evgeny.eventscheduler.persistence.common.identity.UUIDEntity;
 
@@ -23,28 +22,34 @@ public class Event extends UUIDEntity {
     @JoinColumn(name = "OWNER_ID", nullable = false)
     private Account owner;
 
+    //Time of occurrence of the event in the database
     @Convert(converter = EventDateConverter.class)
     @Column(name = "CREATED_TIME")
     private LocalDateTime createdTime;
 
+    //Event start time (specified by users)
     @Convert(converter = EventDateConverter.class)
     @Column(name = "START_TIME")
     private LocalDateTime startTime;
 
+    //End time of the event (specified by users)
     @Convert(converter = EventDateConverter.class)
     @Column(name = "FINISH_TIME")
     private LocalDateTime finishTime;
 
+    //Actual end time of the event (the event will not appear in the list of active events)
     @Convert(converter = EventDateConverter.class)
     @Column(name = "COMPLETED_TIME")
     private LocalDateTime completedTime;
 
+    //The number of participants after which the event will not be shown in the list of active
     @Column(name = "MAX_NUMBER_OF_PARTICIPANTS")
     private Integer maxNumberOfParticipants;
 
     @Column(name = "IS_PRIVATE")
     private Boolean isPrivate;
 
+    //The first element is longitude, the second is latitude
     @Column(name = "COORDINATES")
     private String coordinates;
 

@@ -11,10 +11,7 @@ import ru.ivanov.evgeny.eventscheduler.persistence.domain.Event;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventDto;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Collectors;
 

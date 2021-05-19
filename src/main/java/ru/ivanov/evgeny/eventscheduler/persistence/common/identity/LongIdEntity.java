@@ -1,11 +1,6 @@
 package ru.ivanov.evgeny.eventscheduler.persistence.common.identity;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)

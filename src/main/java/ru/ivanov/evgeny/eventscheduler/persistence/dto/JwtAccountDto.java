@@ -33,7 +33,7 @@ public class JwtAccountDto implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new HashSet<>(){{
+        return new HashSet<>() {{
             add(role);
         }};
     }
