@@ -1,24 +1,38 @@
 package ru.ivanov.evgeny.eventscheduler.persistence.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
 
-public class EventDto {
+public class EventDto extends UUIDEntityDto {
 
     private String name;
 
     private String description;
 
-    private Long owner_id;
+    private Long ownerId;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
+    private LocalDateTime createdTime;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
     private LocalDateTime startTime;
 
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
     private LocalDateTime finishTime;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
+    private LocalDateTime completedTime;
 
     private Integer maxNumberOfParticipants;
 
+    @JsonProperty("isPrivate")
     private Boolean isPrivate;
 
     private Double[] coordinates;
+
+    private Long categoryId;
 
     public String getName() {
         return name;
@@ -36,12 +50,20 @@ public class EventDto {
         this.description = description;
     }
 
-    public Long getOwner_id() {
-        return owner_id;
+    public Long getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner_id(Long owner_id) {
-        this.owner_id = owner_id;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
     }
 
     public LocalDateTime getStartTime() {
@@ -58,6 +80,14 @@ public class EventDto {
 
     public void setFinishTime(LocalDateTime finishTime) {
         this.finishTime = finishTime;
+    }
+
+    public LocalDateTime getCompletedTime() {
+        return completedTime;
+    }
+
+    public void setCompletedTime(LocalDateTime completedTime) {
+        this.completedTime = completedTime;
     }
 
     public Integer getMaxNumberOfParticipants() {
@@ -82,5 +112,13 @@ public class EventDto {
 
     public void setCoordinates(Double[] coordinates) {
         this.coordinates = coordinates;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

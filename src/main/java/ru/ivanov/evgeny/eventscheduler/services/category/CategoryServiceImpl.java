@@ -21,6 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryMapper categoryMapper;
 
     @Transactional
+    @Override
     public Category submit(CategoryDto categoryDto) {
         Category category;
         if (categoryDto.getId() != null) {
@@ -37,6 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public CategoryDto fetchCategoryById(Long id) {
         Category category = categoryRepository.findById(id).orElse(null);
         if (category == null) {
@@ -46,6 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<CategoryDto> fetchAllCategories() {
         return categoryRepository.findAll().stream().map(c -> categoryMapper.mapToDto(c)).collect(Collectors.toList());
     }

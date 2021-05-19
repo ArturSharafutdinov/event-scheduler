@@ -1,6 +1,8 @@
 package ru.ivanov.evgeny.eventscheduler.persistence.domain;
 
 
+import org.hibernate.annotations.CreationTimestamp;
+import ru.ivanov.evgeny.eventscheduler.persistence.common.converters.EventDateConverter;
 import ru.ivanov.evgeny.eventscheduler.persistence.common.identity.UUIDEntity;
 
 import javax.persistence.*;
@@ -18,18 +20,22 @@ public class Event extends UUIDEntity {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "ACCOUNT_ID", nullable = false)
+    @JoinColumn(name = "OWNER_ID", nullable = false)
     private Account owner;
 
+    @Convert(converter = EventDateConverter.class)
     @Column(name = "CREATED_TIME")
     private LocalDateTime createdTime;
 
+    @Convert(converter = EventDateConverter.class)
     @Column(name = "START_TIME")
     private LocalDateTime startTime;
 
+    @Convert(converter = EventDateConverter.class)
     @Column(name = "FINISH_TIME")
     private LocalDateTime finishTime;
 
+    @Convert(converter = EventDateConverter.class)
     @Column(name = "COMPLETED_TIME")
     private LocalDateTime completedTime;
 
@@ -41,6 +47,10 @@ public class Event extends UUIDEntity {
 
     @Column(name = "COORDINATES")
     private String coordinates;
+
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID", nullable = false)
+    private Category category;
 
     public String getName() {
         return name;
@@ -110,8 +120,8 @@ public class Event extends UUIDEntity {
         return isPrivate;
     }
 
-    public void setPrivate(Boolean aPrivate) {
-        isPrivate = aPrivate;
+    public void setPrivate(Boolean isPrivate) {
+        this.isPrivate = isPrivate;
     }
 
     public String getCoordinates() {
@@ -122,4 +132,11 @@ public class Event extends UUIDEntity {
         this.coordinates = coordinates;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
