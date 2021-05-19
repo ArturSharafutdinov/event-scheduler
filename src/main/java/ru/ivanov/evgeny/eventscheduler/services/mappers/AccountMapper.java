@@ -5,44 +5,44 @@ import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.AccountDto;
 
 @Component
-public class UserMapper {
+public class AccountMapper {
 
     public Account mapToEntity(AccountDto accountDto) {
-        Account user = new Account();
+        Account account = new Account();
 
-        user.setUsername(
+        account.setUsername(
                 accountDto.getUsername()
         );
-        user.setPassword(
+        account.setPassword(
                 accountDto.getPassword()
         );
-        user.setEmail(
+        account.setEmail(
                 accountDto.getEmail()
         );
-        user.setFirstName(
+        account.setFirstName(
                 accountDto.getFirstName()
         );
 
-        return user;
+        return account;
     }
 
-    public AccountDto mapToDto(Account user) {
+    public AccountDto mapToDto(Account account) {
         AccountDto accountDto = new AccountDto();
 
         accountDto.setId(
-                user.getId()
+                account.getId()
         );
         accountDto.setUsername(
-                user.getUsername()
+                account.getUsername()
         );
         accountDto.setPassword(
-                user.getPassword()
+                account.getPassword()
         );
         accountDto.setEmail(
-                user.getEmail()
+                account.getEmail()
         );
         accountDto.setFirstName(
-                user.getFirstName()
+                account.getFirstName()
         );
 
 
