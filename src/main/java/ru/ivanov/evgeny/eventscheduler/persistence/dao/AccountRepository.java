@@ -8,6 +8,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     Account findByIdEquals(Long Id);
 
-    Long countUserByEmail(String email);
+    Long countAccountByEmail(String email);
 }
 
