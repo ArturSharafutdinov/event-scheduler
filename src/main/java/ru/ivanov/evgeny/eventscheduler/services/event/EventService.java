@@ -14,4 +14,6 @@ public interface EventService {
 
     List<EventDto> fetchAllEvents();
 
+    Event getEventById(UUID id);
+
 }

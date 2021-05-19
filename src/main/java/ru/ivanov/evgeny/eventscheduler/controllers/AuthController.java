@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.AuthAccountDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.JwtAccountDto;
 import ru.ivanov.evgeny.eventscheduler.security.jwt.TokenProvider;
+import ru.ivanov.evgeny.eventscheduler.services.auth.AccountService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,31 +26,11 @@ import java.util.Map;
 public class AuthController {
 
     @Autowired
-    TokenProvider tokenProvider;
-    @Autowired
-    private AuthenticationManagerBuilder authenticationManagerBuilder;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private AccountService accountService;
 
     @PostMapping("/auth")
-    public ResponseEntity<Object> login(@Validated @RequestBody AuthAccountDto user) {
-
-
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
-
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String token = tokenProvider.createToken(authentication, true);
-        final JwtAccountDto jwtUser = (JwtAccountDto) authentication.getPrincipal();
-
-        Map<String, Object> authInfo = new HashMap<>();
-
-        authInfo.put("token", "Bearer " + token);
-        authInfo.put("user", jwtUser);
-
+    public ResponseEntity<Object> login(@Validated @RequestBody AuthAccountDto authAccountDto) {
+        Map<String, Object> authInfo = accountService.login(authAccountDto);
         return ResponseEntity.ok(authInfo);
     }
 

@@ -19,7 +19,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) {
 
-        final Account account = accountService.findByEmail(email);
+        final Account account = accountService.findAccountByEmail(email);
 
         if (Objects.isNull(account)) {
             throw new IllegalArgumentException("No user found with email: " + email);

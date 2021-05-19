@@ -116,7 +116,7 @@
 					<propertyFileWillOverride>true</propertyFileWillOverride>
 				</configuration>
 			</plugin>
-		</plugins>
+        </plugins>
 	</build>
 
 </project>
