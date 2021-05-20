@@ -9,13 +9,13 @@ import java.util.UUID;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public abstract class UUIDEntity implements Identified{
+public abstract class UUIDEntity implements Identified {
 
     @Id
     private UUID uuid;
 
     public UUIDEntity() {
-        this.uuid=UUID.randomUUID();
+        this.uuid = UUID.randomUUID();
     }
 
     @Override

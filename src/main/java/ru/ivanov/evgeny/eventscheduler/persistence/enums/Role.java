@@ -1,7 +1,5 @@
 package ru.ivanov.evgeny.eventscheduler.persistence.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {

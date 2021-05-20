@@ -1,4 +1,4 @@
-package ru.ivanov.evgeny.eventscheduler.services.authServices;
+package ru.ivanov.evgeny.eventscheduler.services.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,23 +14,23 @@ import java.util.Objects;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    UserService userService;
+    AccountService accountService;
 
     @Override
     public UserDetails loadUserByUsername(String email) {
 
-        final Account user = userService.findByEmail(email);
+        final Account account = accountService.findAccountByEmail(email);
 
-        if (Objects.isNull(user)) {
+        if (Objects.isNull(account)) {
             throw new IllegalArgumentException("No user found with email: " + email);
         }
 
-        boolean isEnabled = user.getEnabled();
+        boolean isEnabled = account.getEnabled();
         if (!isEnabled) {
             throw new IllegalArgumentException("User is banned");
         }
 
-        return userService.createUserDetails(user);
+        return accountService.createUserDetails(account);
     }
 }
 

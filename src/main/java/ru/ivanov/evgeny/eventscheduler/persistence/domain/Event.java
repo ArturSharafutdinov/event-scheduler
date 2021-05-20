@@ -1,6 +1,7 @@
 package ru.ivanov.evgeny.eventscheduler.persistence.domain;
 
 
+import ru.ivanov.evgeny.eventscheduler.persistence.common.converters.EventDateConverter;
 import ru.ivanov.evgeny.eventscheduler.persistence.common.identity.UUIDEntity;
 
 import javax.persistence.*;
@@ -20,29 +21,43 @@ public class Event extends UUIDEntity {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "ACCOUNT_ID", nullable = false)
+    @JoinColumn(name = "OWNER_ID", nullable = false)
     private Account owner;
 
+    //Time of occurrence of the event in the database
+    @Convert(converter = EventDateConverter.class)
     @Column(name = "CREATED_TIME")
     private LocalDateTime createdTime;
 
+    //Event start time (specified by users)
+    @Convert(converter = EventDateConverter.class)
     @Column(name = "START_TIME")
     private LocalDateTime startTime;
 
+    //End time of the event (specified by users)
+    @Convert(converter = EventDateConverter.class)
     @Column(name = "FINISH_TIME")
     private LocalDateTime finishTime;
 
+    //Actual end time of the event (the event will not appear in the list of active events)
+    @Convert(converter = EventDateConverter.class)
     @Column(name = "COMPLETED_TIME")
     private LocalDateTime completedTime;
 
+    //The number of participants after which the event will not be shown in the list of active
     @Column(name = "MAX_NUMBER_OF_PARTICIPANTS")
     private Integer maxNumberOfParticipants;
 
     @Column(name = "IS_PRIVATE")
     private Boolean isPrivate;
 
+    //The first element is longitude, the second is latitude
     @Column(name = "COORDINATES")
     private String coordinates;
+
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID", nullable = false)
+    private Category category;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
     private Set<InviteRequest> inviteRequest = new HashSet<>();
@@ -115,8 +130,8 @@ public class Event extends UUIDEntity {
         return isPrivate;
     }
 
-    public void setPrivate(Boolean aPrivate) {
-        isPrivate = aPrivate;
+    public void setPrivate(Boolean isPrivate) {
+        this.isPrivate = isPrivate;
     }
 
     public String getCoordinates() {
@@ -127,6 +142,13 @@ public class Event extends UUIDEntity {
         this.coordinates = coordinates;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
     public Set<InviteRequest> getInviteRequest() {
         return inviteRequest;
     }

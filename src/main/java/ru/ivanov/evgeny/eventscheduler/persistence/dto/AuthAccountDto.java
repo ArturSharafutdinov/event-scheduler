@@ -1,9 +1,5 @@
 package ru.ivanov.evgeny.eventscheduler.persistence.dto;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 public class AuthAccountDto {
 
     private String email;

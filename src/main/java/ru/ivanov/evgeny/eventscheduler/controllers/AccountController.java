@@ -11,6 +11,7 @@ import ru.ivanov.evgeny.eventscheduler.persistence.dao.AccountRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.AccountDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.Role;
+import ru.ivanov.evgeny.eventscheduler.services.auth.AccountService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -19,37 +20,12 @@ public class AccountController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
 
     @PostMapping("/signUp")
     public void registration(@RequestBody AccountDto accountDto) {
-        Account user = accountRepository.findByEmail(accountDto.getEmail());
-        if (user == null) {
-            user = new Account();
-            user.setUsername(
-                    accountDto.getUsername()
-            );
-            user.setPassword(
-                    passwordEncoder.encode(accountDto.getPassword())
-            );
-            user.setEmail(
-                    accountDto.getEmail()
-            );
-            user.setFirstName(
-                    accountDto.getFirstName()
-            );
-            user.setRole(
-                    Role.USER
-            );
-            // TODO убрать после подтверждения email
-            user.setEnabled(true);
-            accountRepository.save(user);
-
-        } else {
-            throw new RuntimeException("User with this email exists");
-        }
-
-
+        Long accountId = accountService.register(accountDto);
+        System.out.println(accountId);
     }
 
 }

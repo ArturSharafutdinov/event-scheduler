@@ -43,7 +43,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -71,6 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth").permitAll()
                 .antMatchers("/signUp").permitAll()
+                .antMatchers("/event").permitAll()
 
                 .anyRequest().authenticated()
 

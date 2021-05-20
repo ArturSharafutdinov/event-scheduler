@@ -1,15 +1,12 @@
 package ru.ivanov.evgeny.eventscheduler.persistence.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.collection.UnmodifiableCollection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.Role;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
 
 public class JwtAccountDto implements UserDetails {
 
@@ -36,7 +33,7 @@ public class JwtAccountDto implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new HashSet<>(){{
+        return new HashSet<>() {{
             add(role);
         }};
     }

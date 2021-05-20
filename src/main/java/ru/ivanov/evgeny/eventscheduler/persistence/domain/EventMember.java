@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "EVENT_MEMBER")
-@AttributeOverride(name = "id", column = @Column(name = "EVENT_MEMBER_ID"))
+@AttributeOverride(name = "uuid", column = @Column(name = "EVENT_MEMBER_ID"))
 public class EventMember extends UUIDEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
