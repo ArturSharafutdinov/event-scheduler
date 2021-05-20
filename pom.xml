@@ -130,7 +130,7 @@
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
-        </plugins>
+куьщ		</plugins>
 	</build>
 
 </project>
