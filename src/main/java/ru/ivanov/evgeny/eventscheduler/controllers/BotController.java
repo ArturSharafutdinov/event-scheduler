@@ -1,7 +1,9 @@
 package ru.ivanov.evgeny.eventscheduler.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.ivanov.evgeny.eventscheduler.botapi.EventSchedulerBot;
@@ -15,10 +17,9 @@ public class BotController {
         this.eventSchedulerBot = eventSchedulerBot;
     }
 
-
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public BotApiMethod<?> onUpdateReceived(@RequestBody Update update) {
-       return eventSchedulerBot.onWebhookUpdateReceived(update);
+    public BotApiMethod<?> onUpdateReceived(@RequestBody Update update, BotApiMethod<?> botApiMethod) {
+        return botApiMethod;
     }
 
 

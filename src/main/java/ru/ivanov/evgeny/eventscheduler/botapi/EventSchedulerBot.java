@@ -6,7 +6,6 @@ import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class EventSchedulerBot extends TelegramWebhookBot {
 
@@ -28,7 +27,7 @@ public class EventSchedulerBot extends TelegramWebhookBot {
 
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
-            Long chat_id = update.getMessage().getChatId();
+        Long chat_id = update.getMessage().getChatId();
         return new SendMessage(chat_id.toString(), update.getMessage().getText());
     }
 

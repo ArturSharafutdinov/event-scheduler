@@ -10,7 +10,6 @@ import ru.ivanov.evgeny.eventscheduler.botapi.EventSchedulerBot;
 @PropertySource("classpath:telegrambot.properties")
 public class BotConfig {
 
-
     @Value("${webhook}")
     private String webHookPath;
 
