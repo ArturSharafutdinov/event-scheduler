@@ -1,0 +1,5 @@
+Стартуем ngrok командой ngrok http SERVER_PORT
+Копируем https link
+Вставляем её в telegrambot.properties и запускаем приложение
+Вставляем в след. ссылку и отправляем запрос:
+https://api.telegram.org/bot1837671038:AAHZJU4OKlhDOOXwieXoKbX_1wkhveHjd1o/setWebhook?url=NGROK_URL/
