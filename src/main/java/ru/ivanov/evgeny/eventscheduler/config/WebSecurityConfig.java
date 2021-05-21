@@ -45,8 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                // we don't need CSRF because our token is invulnerable
+        httpSecurity//.requiresChannel()
+               // .anyRequest();
+//                .requiresSecure();
+//                // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
 
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
@@ -70,6 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth").permitAll()
                 .antMatchers("/signUp").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/event").permitAll()
 
                 .anyRequest().authenticated()

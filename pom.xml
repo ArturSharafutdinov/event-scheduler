@@ -91,6 +91,13 @@
 			<artifactId>commons-collections4</artifactId>
 			<version>4.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.telegram/telegrambots-spring-boot-starter -->
+		<dependency>
+			<groupId>org.telegram</groupId>
+			<artifactId>telegrambots-spring-boot-starter</artifactId>
+			<version>5.2.0</version>
+		</dependency>
+
 
 	</dependencies>
 
@@ -116,16 +123,15 @@
 					<propertyFileWillOverride>true</propertyFileWillOverride>
 				</configuration>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>16</source>
-                    <target>16</target>
-                    <compilerArgs>--enable-preview</compilerArgs>
-                </configuration>
-            </plugin>
-        </plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>14</source>
+					<target>14</target>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 </project>
