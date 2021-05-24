@@ -13,19 +13,13 @@
             <column name="USERNAME" type="varchar(64)">
                 <constraints nullable="false"/>
             </column>
-            <column name="PASSWORD" type="varchar(500)">
+            <column name="AGE" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="EMAIL" type="varchar(255)">
+            <column name="GENDER" type="varchar(1)">
                 <constraints nullable="false"/>
             </column>
-            <column name="FIRST_NAME" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="IS_ENABLED" type="boolean">
-                <constraints nullable="false"/>
-            </column>
-            <column name="ROLE" type="varchar(25)">
+            <column name="CITY" type="varchar(64)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -118,17 +112,6 @@
         </insert>
         <insert tableName="CATEGORY">
             <column name="NAME" value="Спорт"/>
-        </insert>
-    </changeSet>
-
-    <changeSet id="15:49" author="Artur">
-        <insert tableName="ACCOUNT">
-            <column name="USERNAME" value="ADMIN"/>
-            <column name="PASSWORD" value="ADMIN"/>
-            <column name="EMAIL" value="ADMIN"/>
-            <column name="FIRST_NAME" value="ADMIN"/>
-            <column name="IS_ENABLED" value="TRUE"/>
-            <column name="ROLE" value="USER"/>
         </insert>
     </changeSet>
 
