@@ -18,8 +18,8 @@ public class BotController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public BotApiMethod<?> onUpdateReceived(@RequestBody Update update, BotApiMethod<?> botApiMethod) {
-        return botApiMethod;
+    public BotApiMethod<?> onUpdateReceived(@RequestBody Update update) {
+        return eventSchedulerBot.onWebhookUpdateReceived(update);
     }
 
 
