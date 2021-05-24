@@ -5,11 +5,11 @@ public class AccountDto extends LongIdEntityDto {
 
     private String username;
 
-    private String password;
+    private Integer age;
 
-    private String email;
+    private String gender;
 
-    private String firstName;
+    private String city;
 
     public String getUsername() {
         return username;
@@ -19,28 +19,27 @@ public class AccountDto extends LongIdEntityDto {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
-    public String getEmail() {
-        return email;
+    public String getGender() {
+        return gender;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getCity() {
+        return city;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setCity(String city) {
+        this.city = city;
     }
-
 }

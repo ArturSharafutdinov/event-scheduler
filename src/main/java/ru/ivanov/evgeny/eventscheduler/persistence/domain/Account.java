@@ -16,24 +16,14 @@ public class Account extends LongIdEntity {
     @Column(name = "USERNAME", nullable = false)
     private String username;
 
-    @Column(name = "PASSWORD", nullable = false)
-    private String password;
+    @Column(name = "AGE", nullable = false)
+    private Integer age;
 
-    @Column(name = "EMAIL", nullable = false)
-    private String email;
+    @Column(name = "GENDER", nullable = false)
+    private String gender;
 
-    @Column(name = "FIRST_NAME", nullable = false)
-    private String firstName;
-
-    @Column(name = "IS_ENABLED")
-    private Boolean isEnabled;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "ROLE")
-    private Role role;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
-    private Set<InviteRequest> inviteRequest = new HashSet<>();
+    @Column(name = "CITY", nullable = false)
+    private String city;
 
     public String getUsername() {
         return username;
@@ -43,51 +33,27 @@ public class Account extends LongIdEntity {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
-    public String getEmail() {
-        return email;
+    public String getGender() {
+        return gender;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getCity() {
+        return city;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public Boolean getEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        isEnabled = enabled;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Set<InviteRequest> getInviteRequest() {
-        return inviteRequest;
-    }
-
-    public void setInviteRequest(Set<InviteRequest> inviteRequest) {
-        this.inviteRequest = inviteRequest;
+    public void setCity(String city) {
+        this.city = city;
     }
 }

@@ -10,18 +10,10 @@ public class AccountMapper {
     public Account mapToEntity(AccountDto accountDto) {
         Account account = new Account();
 
-        account.setUsername(
-                accountDto.getUsername()
-        );
-        account.setPassword(
-                accountDto.getPassword()
-        );
-        account.setEmail(
-                accountDto.getEmail()
-        );
-        account.setFirstName(
-                accountDto.getFirstName()
-        );
+        account.setUsername(accountDto.getUsername());
+        account.setAge(accountDto.getAge());
+        account.setGender(accountDto.getGender());
+        account.setCity(accountDto.getCity());
 
         return account;
     }
@@ -29,22 +21,11 @@ public class AccountMapper {
     public AccountDto mapToDto(Account account) {
         AccountDto accountDto = new AccountDto();
 
-        accountDto.setId(
-                account.getId()
-        );
-        accountDto.setUsername(
-                account.getUsername()
-        );
-        accountDto.setPassword(
-                account.getPassword()
-        );
-        accountDto.setEmail(
-                account.getEmail()
-        );
-        accountDto.setFirstName(
-                account.getFirstName()
-        );
-
+        accountDto.setId(account.getId());
+        accountDto.setUsername(account.getUsername());
+        accountDto.setAge(account.getAge());
+        accountDto.setGender(account.getGender());
+        accountDto.setCity(account.getCity());
 
         return accountDto;
     }
