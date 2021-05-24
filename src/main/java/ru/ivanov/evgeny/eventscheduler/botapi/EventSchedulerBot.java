@@ -1,10 +1,10 @@
 package ru.ivanov.evgeny.eventscheduler.botapi;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 public class EventSchedulerBot extends TelegramWebhookBot {
@@ -14,6 +14,9 @@ public class EventSchedulerBot extends TelegramWebhookBot {
     private String botUsername;
 
     private String botToken;
+
+    @Autowired
+    private BotFacade botFacade;
 
     @Override
     public String getBotUsername() {
@@ -27,10 +30,9 @@ public class EventSchedulerBot extends TelegramWebhookBot {
 
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
-        Long chat_id = update.getMessage().getChatId();
-        return new SendMessage(chat_id.toString(), update.getMessage().getText());
-    }
 
+        return botFacade.handleUpdate(update);
+    }
 
     @Override
     public String getBotPath() {
@@ -60,6 +62,5 @@ public class EventSchedulerBot extends TelegramWebhookBot {
     public EventSchedulerBot() {
         super();
     }
-
 
 }
