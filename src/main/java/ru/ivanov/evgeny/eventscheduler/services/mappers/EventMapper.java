@@ -30,6 +30,7 @@ public class EventMapper {
         event.setDescription(eventDto.getDescription());
         event.setMaxNumberOfParticipants(eventDto.getMaxNumberOfParticipants());
         event.setPrivate(eventDto.getPrivate());
+        event.setDuration(eventDto.getDuration());
 
         //account
         Account account = accountRepository.findById(eventDto.getOwnerId()).orElseThrow(() -> new IllegalArgumentException("No such account"));
@@ -37,7 +38,6 @@ public class EventMapper {
 
         //time
         event.setStartTime(eventDto.getStartTime());
-        event.setFinishTime(eventDto.getFinishTime());
         event.setCreatedTime(LocalDateTime.now());
 
         //category
@@ -62,10 +62,10 @@ public class EventMapper {
         eventDto.setMaxNumberOfParticipants(event.getMaxNumberOfParticipants());
         eventDto.setPrivate(event.getPrivate());
         eventDto.setOwnerId(event.getOwner().getId());
+        eventDto.setDuration(event.getDuration());
 
         //time
         eventDto.setCreatedTime(event.getCreatedTime());
-        eventDto.setCompletedTime(event.getCompletedTime());
         eventDto.setStartTime(event.getStartTime());
         eventDto.setFinishTime(event.getFinishTime());
 

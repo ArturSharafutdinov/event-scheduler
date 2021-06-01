@@ -34,15 +34,13 @@ public class Event extends UUIDEntity {
     @Column(name = "START_TIME")
     private LocalDateTime startTime;
 
-    //End time of the event (specified by users)
+    //The time after which the event will not be shown in the list of active
     @Convert(converter = EventDateConverter.class)
     @Column(name = "FINISH_TIME")
     private LocalDateTime finishTime;
 
-    //Actual end time of the event (the event will not appear in the list of active events)
-    @Convert(converter = EventDateConverter.class)
-    @Column(name = "COMPLETED_TIME")
-    private LocalDateTime completedTime;
+    @Column(name = "DURATION")
+    private Integer duration;
 
     //The number of participants after which the event will not be shown in the list of active
     @Column(name = "MAX_NUMBER_OF_PARTICIPANTS")
@@ -110,12 +108,12 @@ public class Event extends UUIDEntity {
         this.finishTime = finishTime;
     }
 
-    public LocalDateTime getCompletedTime() {
-        return completedTime;
+    public Integer getDuration() {
+        return duration;
     }
 
-    public void setCompletedTime(LocalDateTime completedTime) {
-        this.completedTime = completedTime;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
     public Integer getMaxNumberOfParticipants() {

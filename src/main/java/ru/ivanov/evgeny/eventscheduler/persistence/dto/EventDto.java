@@ -13,17 +13,16 @@ public class EventDto extends UUIDEntityDto {
 
     private Long ownerId;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm[.SSS][.SS]")
     private LocalDateTime createdTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm[.SSS][.SS]")
     private LocalDateTime startTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm[.SSS][.SS]")
     private LocalDateTime finishTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
-    private LocalDateTime completedTime;
+    private Integer duration;
 
     private Integer maxNumberOfParticipants;
 
@@ -82,12 +81,12 @@ public class EventDto extends UUIDEntityDto {
         this.finishTime = finishTime;
     }
 
-    public LocalDateTime getCompletedTime() {
-        return completedTime;
+    public Integer getDuration() {
+        return duration;
     }
 
-    public void setCompletedTime(LocalDateTime completedTime) {
-        this.completedTime = completedTime;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
     public Integer getMaxNumberOfParticipants() {
