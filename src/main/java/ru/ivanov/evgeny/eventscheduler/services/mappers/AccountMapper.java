@@ -19,9 +19,6 @@ public class AccountMapper {
         account.setEmail(
                 accountDto.getEmail()
         );
-        account.setFirstName(
-                accountDto.getFirstName()
-        );
 
         return account;
     }
@@ -40,9 +37,6 @@ public class AccountMapper {
         );
         accountDto.setEmail(
                 account.getEmail()
-        );
-        accountDto.setFirstName(
-                account.getFirstName()
         );
 
 

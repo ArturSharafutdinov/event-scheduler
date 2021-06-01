@@ -22,9 +22,6 @@ public class Account extends LongIdEntity {
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
-    @Column(name = "FIRST_NAME", nullable = false)
-    private String firstName;
-
     @Column(name = "IS_ENABLED")
     private Boolean isEnabled;
 
@@ -57,14 +54,6 @@ public class Account extends LongIdEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public Boolean getEnabled() {

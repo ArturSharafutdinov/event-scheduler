@@ -9,8 +9,6 @@ public class AccountDto extends LongIdEntityDto {
 
     private String email;
 
-    private String firstName;
-
     public String getUsername() {
         return username;
     }
@@ -33,14 +31,6 @@ public class AccountDto extends LongIdEntityDto {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
 }
