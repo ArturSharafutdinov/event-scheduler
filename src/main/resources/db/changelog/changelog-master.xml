@@ -137,11 +137,210 @@
                 <constraints nullable="false" foreignKeyName="fk_invite_request_eventId" references="EVENT(EVENT_ID)"/>
             </column>
             <column name="ACCOUNT_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_invite_request_accountId" references="ACCOUNT(ACCOUNT_ID)"/>
+                <constraints nullable="false" foreignKeyName="fk_invite_request_accountId"
+                             references="ACCOUNT(ACCOUNT_ID)"/>
             </column>
             <column name="DESCRIPTION" type="varchar(256)"/>
             <column name="INVITE_STATUS" type="varchar(64)"/>
         </createTable>
+    </changeSet>
+
+
+    <changeSet id="20:27 01.06.21" author="Artur">
+        <insert tableName="EVENT">
+            <column name="EVENT_ID" value="04630c6a-a2fd-4e4e-95bd-6724b8bfbaa1"/>
+            <column name="NAME" value="Собрание анонимного клуба"/>
+            <column name="DESCRIPTION" value="Обсудим ситуацию с Евгением"/>
+            <column name="OWNER_ID" value="1"/>
+            <column name="CREATED_TIME" value="2021-06-01 20:18:32.85"/>
+            <column name="START_TIME" value="2021-06-10 20:18:00"/>
+            <column name="DURATION" value="90"/>
+            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="5"/>
+            <column name="IS_PRIVATE" value="true"/>
+            <column name="COORDINATES" value="55.799492867367455 49.18423991127491"/>
+            <column name="CATEGORY_ID" value="1"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="EVENT_ID" value="7e8aaef8-9f48-4c15-a996-80223dd77761"/>
+            <column name="NAME" value="Настольные игры"/>
+            <column name="DESCRIPTION" value="Судный день твоей звезде"/>
+            <column name="OWNER_ID" value="1"/>
+            <column name="CREATED_TIME" value="2021-06-01 20:17:35.835"/>
+            <column name="START_TIME" value="2021-06-26 20:17:00"/>
+            <column name="DURATION" value="90"/>
+            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="12"/>
+            <column name="IS_PRIVATE" value="false"/>
+            <column name="COORDINATES" value="55.797208387325206 49.18490509911059"/>
+            <column name="CATEGORY_ID" value="2"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="EVENT_ID" value="7eb9be7a-c1e8-419d-a3b1-6071b04e8832"/>
+            <column name="NAME" value="Тупа вписка"/>
+            <column name="DESCRIPTION" value="Будем пить и виски юзать"/>
+            <column name="OWNER_ID" value="1"/>
+            <column name="CREATED_TIME" value="2021-06-01 20:14:58.53"/>
+            <column name="START_TIME" value="2021-07-02 20:14:00"/>
+            <column name="DURATION" value="360"/>
+            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="7"/>
+            <column name="IS_PRIVATE" value="true"/>
+            <column name="COORDINATES" value="55.79737156893456 49.18664249999999"/>
+            <column name="CATEGORY_ID" value="3"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="EVENT_ID" value="a421691f-27ab-40d1-8f16-ed8dc649631d"/>
+            <column name="NAME" value="Утренняя пробежка"/>
+            <column name="DESCRIPTION" value="Попробуем заставить Евгения бегать"/>
+            <column name="OWNER_ID" value="1"/>
+            <column name="CREATED_TIME" value="2021-06-01 20:19:27.761"/>
+            <column name="START_TIME" value="2021-06-20 20:19:00"/>
+            <column name="DURATION" value="12"/>
+            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="10"/>
+            <column name="IS_PRIVATE" value="false"/>
+            <column name="COORDINATES" value="55.79963576073546 49.189884737133795"/>
+            <column name="CATEGORY_ID" value="5"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="EVENT_ID" value="0f359f97-af5d-4ec2-bb8f-1d1c545d429e"/>
+            <column name="NAME" value="КачалОчка"/>
+            <column name="DESCRIPTION" value="Парни походят на торчков"/>
+            <column name="OWNER_ID" value="1"/>
+            <column name="CREATED_TIME" value="2021-06-01 20:24:51.188"/>
+            <column name="START_TIME" value="2021-06-10 20:24:00"/>
+            <column name="DURATION" value="1"/>
+            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="2"/>
+            <column name="IS_PRIVATE" value="false"/>
+            <column name="COORDINATES" value="55.760931915438825 49.23209935426694"/>
+            <column name="CATEGORY_ID" value="5"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="EVENT_ID" value="9118802d-7e34-4fd7-a3d0-496008536f6a"/>
+            <column name="NAME" value="Утренник у лолей"/>
+            <column name="DESCRIPTION" value="У Евгения с балкона всё видно"/>
+            <column name="OWNER_ID" value="1"/>
+            <column name="CREATED_TIME" value="2021-06-01 20:21:02.443"/>
+            <column name="START_TIME" value="2021-06-27 20:20:00"/>
+            <column name="DURATION" value="5"/>
+            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="2"/>
+            <column name="IS_PRIVATE" value="true"/>
+            <column name="COORDINATES" value="55.7922613589641 49.20297592878326"/>
+            <column name="CATEGORY_ID" value="4"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="EVENT_ID" value="ae960385-e145-4b60-860e-770744d751ce"/>
+            <column name="NAME" value="Коктейльчики"/>
+            <column name="DESCRIPTION" value="С Никитой (не геи)"/>
+            <column name="OWNER_ID" value="1"/>
+            <column name="CREATED_TIME" value="2021-06-01 20:27:14.624"/>
+            <column name="START_TIME" value="2021-06-19 20:26:00"/>
+            <column name="DURATION" value="1080"/>
+            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="4"/>
+            <column name="IS_PRIVATE" value="true"/>
+            <column name="COORDINATES" value="55.73729784937051 49.15547896081728"/>
+            <column name="CATEGORY_ID" value="3"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="EVENT_ID" value="aea7911b-17bc-4af4-873d-4a189169bdd3"/>
+            <column name="NAME" value="Поездка на дачу"/>
+            <column name="DESCRIPTION" value="Ууууу набухаемся"/>
+            <column name="OWNER_ID" value="1"/>
+            <column name="CREATED_TIME" value="2021-06-01 20:22:47.105"/>
+            <column name="START_TIME" value="2021-06-26 20:21:00"/>
+            <column name="DURATION" value="4320"/>
+            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="5"/>
+            <column name="IS_PRIVATE" value="true"/>
+            <column name="COORDINATES" value="55.812091289190526 48.51677972150417"/>
+            <column name="CATEGORY_ID" value="3"/>
+        </insert>
+        <insert tableName="EVENT">
+            <column name="EVENT_ID" value="e09d1522-f657-450d-b1a1-ef2719c95781"/>
+            <column name="NAME" value="Байкалище"/>
+            <column name="DESCRIPTION" value="Как и обещал"/>
+            <column name="OWNER_ID" value="1"/>
+            <column name="CREATED_TIME" value="2021-06-01 20:23:39.747"/>
+            <column name="START_TIME" value="2021-06-20 20:23:00"/>
+            <column name="DURATION" value="10000"/>
+            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="2"/>
+            <column name="IS_PRIVATE" value="false"/>
+            <column name="COORDINATES" value="53.71029960297948 106.83132749999984"/>
+            <column name="CATEGORY_ID" value="5"/>
+        </insert>
+
+        <!--        <insert tableName="EVENT">-->
+        <!--            <column name="NAME" value=""/>-->
+        <!--            <column name="DESCRIPTION" value=""/>-->
+        <!--            <column name="OWNER_ID" value=""/>-->
+        <!--            <column name="CREATED_TIME" value=""/>-->
+        <!--            <column name="START_TIME" value=""/>-->
+        <!--            <column name="DURATION" value=""/>-->
+        <!--            <column name="MAX_NUMBER_OF_PARTICIPANTS" value=""/>-->
+        <!--            <column name="IS_PRIVATE" value=""/>-->
+        <!--            <column name="COORDINATES" value=""/>-->
+        <!--            <column name="CATEGORY_ID" value=""/>-->
+        <!--        </insert>-->
+
+        <insert tableName="EVENT_MEMBER">
+            <column name="EVENT_ID" value="7eb9be7a-c1e8-419d-a3b1-6071b04e8832"/>
+            <column name="EVENT_MEMBER_ID" value="0652c768-6c44-4f09-a56a-ec17354375ac"/>
+            <column name="ACCOUNT_ID" value="1"/>
+            <column name="ROLE" value="ADMIN"/>
+        </insert>
+        <insert tableName="EVENT_MEMBER">
+            <column name="EVENT_ID" value="e09d1522-f657-450d-b1a1-ef2719c95781"/>
+            <column name="EVENT_MEMBER_ID" value="17fd8804-4084-4c69-be01-c1bf7b7688be"/>
+            <column name="ACCOUNT_ID" value="1"/>
+            <column name="ROLE" value="ADMIN"/>
+        </insert>
+        <insert tableName="EVENT_MEMBER">
+            <column name="EVENT_ID" value="a421691f-27ab-40d1-8f16-ed8dc649631d"/>
+            <column name="EVENT_MEMBER_ID" value="27d09065-e4cd-4e8e-b7a0-d037ff5a78b7"/>
+            <column name="ACCOUNT_ID" value="1"/>
+            <column name="ROLE" value="ADMIN"/>
+        </insert>
+        <insert tableName="EVENT_MEMBER">
+            <column name="EVENT_ID" value="0f359f97-af5d-4ec2-bb8f-1d1c545d429e"/>
+            <column name="EVENT_MEMBER_ID" value="299b211a-dfbd-4d39-bfb9-b024479634fb"/>
+            <column name="ACCOUNT_ID" value="1"/>
+            <column name="ROLE" value="ADMIN"/>
+        </insert>
+        <insert tableName="EVENT_MEMBER">
+            <column name="EVENT_ID" value="7e8aaef8-9f48-4c15-a996-80223dd77761"/>
+            <column name="EVENT_MEMBER_ID" value="5ea6b235-e7bd-4297-8aa3-9979e898718e"/>
+            <column name="ACCOUNT_ID" value="1"/>
+            <column name="ROLE" value="ADMIN"/>
+        </insert>
+        <insert tableName="EVENT_MEMBER">
+            <column name="EVENT_ID" value="ae960385-e145-4b60-860e-770744d751ce"/>
+            <column name="EVENT_MEMBER_ID" value="612ebf27-c980-4941-bdd9-7b710ac36ba0"/>
+            <column name="ACCOUNT_ID" value="1"/>
+            <column name="ROLE" value="ADMIN"/>
+        </insert>
+        <insert tableName="EVENT_MEMBER">
+            <column name="EVENT_ID" value="aea7911b-17bc-4af4-873d-4a189169bdd3"/>
+            <column name="EVENT_MEMBER_ID" value="6d182483-1ccd-4b67-970f-8e4536f7ce79"/>
+            <column name="ACCOUNT_ID" value="1"/>
+            <column name="ROLE" value="ADMIN"/>
+        </insert>
+        <insert tableName="EVENT_MEMBER">
+            <column name="EVENT_ID" value="9118802d-7e34-4fd7-a3d0-496008536f6a"/>
+            <column name="EVENT_MEMBER_ID" value="9e128f2e-1fb8-4419-a48a-c7fedeb26a1b"/>
+            <column name="ACCOUNT_ID" value="1"/>
+            <column name="ROLE" value="ADMIN"/>
+        </insert>
+        <insert tableName="EVENT_MEMBER">
+            <column name="EVENT_ID" value="04630c6a-a2fd-4e4e-95bd-6724b8bfbaa1"/>
+            <column name="EVENT_MEMBER_ID" value="b9fc49ef-7d89-4e1a-9d35-0bf7c0f7ef53"/>
+            <column name="ACCOUNT_ID" value="1"/>
+            <column name="ROLE" value="ADMIN"/>
+        </insert>
+
+
+        <!--        <insert tableName="EVENT">-->
+        <!--            <column name="EVENT_ID" value=""/>-->
+        <!--            <column name="EVENT_MEMBER_ID" value=""/>-->
+        <!--            <column name="ACCOUNT_ID" value="1"/>-->
+        <!--            <column name="ROLE" value="ADMIN"/>-->
+        <!--        </insert>-->
+
     </changeSet>
 
 
