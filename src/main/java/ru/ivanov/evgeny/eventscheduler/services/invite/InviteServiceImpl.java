@@ -55,6 +55,9 @@ public class InviteServiceImpl implements InviteService {
             inviteRequest.setEvent(
                     event
             );
+            inviteRequest.setInviteStatus(
+                    InviteRequest.InviteStatus.PROCESSING
+            );
         }
         inviteRequest.setDescription(
                 minimalInviteRequestDto.getDescription()
