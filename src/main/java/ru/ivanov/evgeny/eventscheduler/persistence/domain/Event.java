@@ -14,10 +14,10 @@ import java.util.Set;
 @AttributeOverride(name = "uuid", column = @Column(name = "EVENT_ID"))
 public class Event extends UUIDEntity {
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION",nullable = false)
     private String description;
 
     @ManyToOne
@@ -26,12 +26,12 @@ public class Event extends UUIDEntity {
 
     //Time of occurrence of the event in the database
     @Convert(converter = EventDateConverter.class)
-    @Column(name = "CREATED_TIME")
+    @Column(name = "CREATED_TIME", nullable = false)
     private LocalDateTime createdTime;
 
     //Event start time (specified by users)
     @Convert(converter = EventDateConverter.class)
-    @Column(name = "START_TIME")
+    @Column(name = "START_TIME", nullable = false)
     private LocalDateTime startTime;
 
     //The time after which the event will not be shown in the list of active
@@ -39,18 +39,18 @@ public class Event extends UUIDEntity {
     @Column(name = "FINISH_TIME")
     private LocalDateTime finishTime;
 
-    @Column(name = "DURATION")
+    @Column(name = "DURATION", nullable = false)
     private Integer duration;
 
     //The number of participants after which the event will not be shown in the list of active
-    @Column(name = "MAX_NUMBER_OF_PARTICIPANTS")
+    @Column(name = "MAX_NUMBER_OF_PARTICIPANTS", nullable = false)
     private Integer maxNumberOfParticipants;
 
-    @Column(name = "IS_PRIVATE")
+    @Column(name = "IS_PRIVATE", nullable = false)
     private Boolean isPrivate;
 
     //The first element is longitude, the second is latitude
-    @Column(name = "COORDINATES")
+    @Column(name = "COORDINATES", nullable = false)
     private String coordinates;
 
     @ManyToOne
