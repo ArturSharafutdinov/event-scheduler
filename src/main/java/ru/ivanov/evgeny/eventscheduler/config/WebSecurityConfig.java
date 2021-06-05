@@ -72,13 +72,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/signUp").permitAll()
                 .antMatchers("/event").permitAll()
                 .antMatchers("/categories").permitAll()
+                .antMatchers("/events").permitAll()
 
                 .anyRequest().authenticated()
 
                 .and()
                 .apply(securityConfigurerAdapter());
 
-        httpSecurity.cors();
+      httpSecurity.cors();
 
     }
 
