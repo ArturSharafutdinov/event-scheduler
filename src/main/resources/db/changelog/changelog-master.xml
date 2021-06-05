@@ -72,7 +72,10 @@
             <column name="IS_PRIVATE" type="boolean">
                 <constraints nullable="false"/>
             </column>
-            <column name="COORDINATES" type="varchar(255)">
+            <column name="LATITUDE" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LONGITUDE" type="double">
                 <constraints nullable="false"/>
             </column>
             <column name="CATEGORY_ID" type="bigint">
@@ -157,7 +160,8 @@
             <column name="DURATION" value="90"/>
             <column name="MAX_NUMBER_OF_PARTICIPANTS" value="5"/>
             <column name="IS_PRIVATE" value="true"/>
-            <column name="COORDINATES" value="55.799492867367455 49.18423991127491"/>
+            <column name="LATITUDE" value="55.799492867367455"/>
+            <column name="LONGITUDE" value="49.18423991127491"/>
             <column name="CATEGORY_ID" value="1"/>
         </insert>
         <insert tableName="EVENT">
@@ -170,7 +174,8 @@
             <column name="DURATION" value="90"/>
             <column name="MAX_NUMBER_OF_PARTICIPANTS" value="12"/>
             <column name="IS_PRIVATE" value="false"/>
-            <column name="COORDINATES" value="55.797208387325206 49.18490509911059"/>
+            <column name="LATITUDE" value="55.797208387325206"/>
+            <column name="LONGITUDE" value="49.18490509911059"/>
             <column name="CATEGORY_ID" value="2"/>
         </insert>
         <insert tableName="EVENT">
@@ -183,7 +188,8 @@
             <column name="DURATION" value="360"/>
             <column name="MAX_NUMBER_OF_PARTICIPANTS" value="7"/>
             <column name="IS_PRIVATE" value="true"/>
-            <column name="COORDINATES" value="55.79737156893456 49.18664249999999"/>
+            <column name="LATITUDE" value="55.79737156893456"/>
+            <column name="LONGITUDE" value="49.18664249999999"/>
             <column name="CATEGORY_ID" value="3"/>
         </insert>
         <insert tableName="EVENT">
@@ -196,7 +202,8 @@
             <column name="DURATION" value="12"/>
             <column name="MAX_NUMBER_OF_PARTICIPANTS" value="10"/>
             <column name="IS_PRIVATE" value="false"/>
-            <column name="COORDINATES" value="55.79963576073546 49.189884737133795"/>
+            <column name="LATITUDE" value="55.79963576073546"/>
+            <column name="LONGITUDE" value="49.189884737133795"/>
             <column name="CATEGORY_ID" value="5"/>
         </insert>
         <insert tableName="EVENT">
@@ -209,7 +216,8 @@
             <column name="DURATION" value="1"/>
             <column name="MAX_NUMBER_OF_PARTICIPANTS" value="2"/>
             <column name="IS_PRIVATE" value="false"/>
-            <column name="COORDINATES" value="55.760931915438825 49.23209935426694"/>
+            <column name="LATITUDE" value="55.760931915438825"/>
+            <column name="LONGITUDE" value="49.23209935426694"/>
             <column name="CATEGORY_ID" value="5"/>
         </insert>
         <insert tableName="EVENT">
@@ -222,7 +230,8 @@
             <column name="DURATION" value="5"/>
             <column name="MAX_NUMBER_OF_PARTICIPANTS" value="2"/>
             <column name="IS_PRIVATE" value="true"/>
-            <column name="COORDINATES" value="55.7922613589641 49.20297592878326"/>
+            <column name="LATITUDE" value="55.7922613589641"/>
+            <column name="LONGITUDE" value="49.20297592878326"/>
             <column name="CATEGORY_ID" value="4"/>
         </insert>
         <insert tableName="EVENT">
@@ -235,7 +244,8 @@
             <column name="DURATION" value="1080"/>
             <column name="MAX_NUMBER_OF_PARTICIPANTS" value="4"/>
             <column name="IS_PRIVATE" value="true"/>
-            <column name="COORDINATES" value="55.73729784937051 49.15547896081728"/>
+            <column name="LATITUDE" value="55.73729784937051"/>
+            <column name="LONGITUDE" value="49.15547896081728"/>
             <column name="CATEGORY_ID" value="3"/>
         </insert>
         <insert tableName="EVENT">
@@ -248,7 +258,8 @@
             <column name="DURATION" value="4320"/>
             <column name="MAX_NUMBER_OF_PARTICIPANTS" value="5"/>
             <column name="IS_PRIVATE" value="true"/>
-            <column name="COORDINATES" value="55.812091289190526 48.51677972150417"/>
+            <column name="LATITUDE" value="55.812091289190526"/>
+            <column name="LONGITUDE" value="48.51677972150417"/>
             <column name="CATEGORY_ID" value="3"/>
         </insert>
         <insert tableName="EVENT">
@@ -261,7 +272,8 @@
             <column name="DURATION" value="10000"/>
             <column name="MAX_NUMBER_OF_PARTICIPANTS" value="2"/>
             <column name="IS_PRIVATE" value="false"/>
-            <column name="COORDINATES" value="53.71029960297948 106.83132749999984"/>
+            <column name="LATITUDE" value="53.71029960297948"/>
+            <column name="LONGITUDE" value="106.83132749999984"/>
             <column name="CATEGORY_ID" value="5"/>
         </insert>
 
