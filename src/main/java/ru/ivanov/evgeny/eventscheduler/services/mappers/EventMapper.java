@@ -11,9 +11,7 @@ import ru.ivanov.evgeny.eventscheduler.persistence.domain.Event;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventDto;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Component
 public class EventMapper {
@@ -23,6 +21,9 @@ public class EventMapper {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     public Event mapToEntity(EventDto eventDto) {
         Event event = new Event();
@@ -41,15 +42,18 @@ public class EventMapper {
         event.setCreatedTime(LocalDateTime.now());
 
         //category
-        Category category = categoryRepository.findById(eventDto.getCategoryId()).orElse(null);
+        Category category = categoryRepository.findById(eventDto.getCategory().getId()).orElse(null);
         event.setCategory(category);
 
         //coordinates
-        String coordinates = Arrays.stream(eventDto.getCoordinates())
-                .map(Object::toString)
-                .collect(Collectors.joining(" "));
+//        String coordinates = Arrays.stream(eventDto.getCoordinates())
+//                .map(Object::toString)
+//                .collect(Collectors.joining(" "));
+//        event.setCoordinates(coordinates);
 
-        event.setCoordinates(coordinates);
+        event.setLatitude(eventDto.getCoordinates()[0]);
+        event.setLongitude(eventDto.getCoordinates()[1]);
+
 
         return event;
     }
@@ -70,10 +74,14 @@ public class EventMapper {
         eventDto.setFinishTime(event.getFinishTime());
 
         //coordinates
-        Double[] coordinates = Arrays.stream(event.getCoordinates().split(" "))
-                .mapToDouble(Double::parseDouble)
-                .boxed()
-                .toArray(Double[]::new);
+//        Double[] coordinates = Arrays.stream(event.getCoordinates().split(" "))
+//                .mapToDouble(Double::parseDouble)
+//                .boxed()
+//                .toArray(Double[]::new);
+        Double[] coordinates = {
+            event.getLatitude(),event.getLongitude()
+        };
+        eventDto.setCategory(categoryMapper.mapToDto(event.getCategory()));
         eventDto.setCoordinates(coordinates);
 
         return eventDto;
