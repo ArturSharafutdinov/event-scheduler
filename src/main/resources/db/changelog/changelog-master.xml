@@ -343,5 +343,40 @@
 
     </changeSet>
 
+    <changeSet id="05061453" author="eugene">
+        <createTable tableName="CHAT_ROOM">
+            <column name="CHAT_ROOM_ID" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ENTITY_ID" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="05061449" author="eugene">
+        <createTable tableName="CHAT_MESSAGE">
+            <column name="CHAT_MESSAGE_ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="TEXT" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATE_TIME" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FINISH_TIME" type="timestamp"/>
+            <column name="AUTHOR_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_chat_message_account_id" references="ACCOUNT(ACCOUNT_ID)"/>
+            </column>
+            <column name="ROOM_ID" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_chat_message_chat_room_id" references="CHAT_ROOM(CHAT_ROOM_ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 
 </databaseChangeLog>
