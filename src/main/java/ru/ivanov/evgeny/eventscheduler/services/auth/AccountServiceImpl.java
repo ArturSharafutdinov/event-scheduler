@@ -5,6 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -115,6 +116,20 @@ public class AccountServiceImpl implements AccountService {
             put("token", "Bearer " + token);
             put("user", jwtUser);
         }};
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Account findAccount(Authentication authentication) {
+        User userDetails = (User) authentication.getPrincipal();
+
+        if (userDetails.getUsername() != null) {
+            Account byIdEquals = accountRepository.findByEmail(userDetails.getUsername());
+            return byIdEquals;
+        }
+
+        throw new IllegalArgumentException();
+
     }
 
 }

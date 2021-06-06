@@ -1,5 +1,6 @@
 package ru.ivanov.evgeny.eventscheduler.services.auth;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.AccountDto;
@@ -22,5 +23,7 @@ public interface AccountService {
     boolean checkAccountForExistsByEmail(String email);
 
     HashMap<String, Object> login(AuthAccountDto authAccountDto);
+
+    Account findAccount(Authentication authentication);
 }
 
