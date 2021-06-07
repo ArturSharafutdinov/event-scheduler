@@ -77,6 +77,7 @@ public class EventServiceImpl implements EventService {
     public FeatureCollection getEventsByBounds(Double[] latitude, Double[] longitude) {
         List<Event> events = eventRepository.findAllByLatitudeBetweenAndLongitudeBetween(latitude[0], latitude[1], longitude[0], longitude[1]);
         List<Feature> features = new ArrayList<>();
+        int i = 0;
         for (Event event : events) {
             Point point = new Point(event.getLatitude(), event.getLongitude());
             Map<String, Object> map = new HashMap<>() {{
@@ -84,12 +85,14 @@ public class EventServiceImpl implements EventService {
                 put("balloonContentBody", event.getDescription());
                 put("balloonContentFooter", getEventStartTimeString(event.getStartTime()));
                 put("hintContent", event.getName());
+                put("eventId", event.getId());
             }};
             Feature feature = new Feature();
             feature.setGeometry(point);
             feature.setProperties(map);
-            feature.setId(event.getId().toString());
+            feature.setId(String.valueOf(i));
             features.add(feature);
+            i++;
         }
 
         FeatureCollection featureCollection = new FeatureCollection();
