@@ -95,6 +95,15 @@
 			<artifactId>commons-collections4</artifactId>
 			<version>4.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/de.grundid.opendatalab/geojson-jackson -->
+		<dependency>
+			<groupId>de.grundid.opendatalab</groupId>
+			<artifactId>geojson-jackson</artifactId>
+			<version>1.14</version>
+		</dependency>
+
+
+
 
 	</dependencies>
 
@@ -129,7 +138,7 @@
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
-        </plugins>
+		</plugins>
 	</build>
 
 </project>

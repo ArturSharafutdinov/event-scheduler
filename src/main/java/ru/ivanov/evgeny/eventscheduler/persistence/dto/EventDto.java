@@ -2,6 +2,7 @@ package ru.ivanov.evgeny.eventscheduler.persistence.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ru.ivanov.evgeny.eventscheduler.persistence.domain.Category;
 
 import java.time.LocalDateTime;
 
@@ -13,25 +14,24 @@ public class EventDto extends UUIDEntityDto {
 
     private Long ownerId;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm[.SSS][.SS]")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm[.SSS][.SS]")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime startTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm[.SSS][.SS]")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime finishTime;
 
     private Integer duration;
 
     private Integer maxNumberOfParticipants;
 
-    @JsonProperty("isPrivate")
     private Boolean isPrivate;
 
     private Double[] coordinates;
 
-    private Long categoryId;
+    private CategoryDto category;
 
     public String getName() {
         return name;
@@ -113,11 +113,11 @@ public class EventDto extends UUIDEntityDto {
         this.coordinates = coordinates;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public CategoryDto getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(CategoryDto category) {
+        this.category = category;
     }
 }

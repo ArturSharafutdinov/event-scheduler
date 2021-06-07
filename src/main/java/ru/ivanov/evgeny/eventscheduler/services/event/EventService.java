@@ -1,5 +1,6 @@
 package ru.ivanov.evgeny.eventscheduler.services.event;
 
+import org.geojson.FeatureCollection;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Event;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventDto;
 
@@ -15,5 +16,7 @@ public interface EventService {
     List<EventDto> fetchAllEvents();
 
     Event getEventById(UUID id);
+
+    FeatureCollection getEventsByBounds(Double[] latitude, Double[] longitude);
 
 }

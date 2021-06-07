@@ -17,7 +17,7 @@ public class Event extends UUIDEntity {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "DESCRIPTION",nullable = false)
+    @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
     @ManyToOne
@@ -50,8 +50,12 @@ public class Event extends UUIDEntity {
     private Boolean isPrivate;
 
     //The first element is longitude, the second is latitude
-    @Column(name = "COORDINATES", nullable = false)
-    private String coordinates;
+    @Column(name = "LATITUDE", nullable = false)
+    private Double latitude;
+
+    //The first element is longitude, the second is latitude
+    @Column(name = "LONGITUDE", nullable = false)
+    private Double longitude;
 
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID", nullable = false)
@@ -128,16 +132,24 @@ public class Event extends UUIDEntity {
         return isPrivate;
     }
 
-    public void setPrivate(Boolean isPrivate) {
-        this.isPrivate = isPrivate;
+    public void setPrivate(Boolean aPrivate) {
+        isPrivate = aPrivate;
     }
 
-    public String getCoordinates() {
-        return coordinates;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setCoordinates(String coordinates) {
-        this.coordinates = coordinates;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public Category getCategory() {
@@ -147,6 +159,7 @@ public class Event extends UUIDEntity {
     public void setCategory(Category category) {
         this.category = category;
     }
+
     public Set<InviteRequest> getInviteRequest() {
         return inviteRequest;
     }
