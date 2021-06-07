@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
+import ru.ivanov.evgeny.eventscheduler.persistence.domain.FileInfo;
+import ru.ivanov.evgeny.eventscheduler.persistence.dto.FileInfoDto;
 import ru.ivanov.evgeny.eventscheduler.services.files.FileService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +26,9 @@ public class FileController {
     private FileService fileService;
 
     @PostMapping("files/uploadFile")
-    public void uploadFile(Account account,
-                                       @RequestParam("file") final MultipartFile file) throws IOException {
-            fileService.uploadFile(account, file);
+    public FileInfoDto uploadFile(Account account,
+                                  @RequestParam("file") final MultipartFile file) throws IOException {
+            return fileService.uploadFile(account, file);
     }
 
     @GetMapping("/files/get")

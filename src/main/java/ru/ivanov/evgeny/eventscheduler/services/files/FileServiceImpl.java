@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.FileRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.FileInfo;
+import ru.ivanov.evgeny.eventscheduler.persistence.dto.FileInfoDto;
+import ru.ivanov.evgeny.eventscheduler.services.mappers.FileInfoMapper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -32,9 +34,12 @@ public class FileServiceImpl implements FileService {
     @Autowired
     private FileRepository fileRepository;
 
+    @Autowired
+    private FileInfoMapper fileInfoMapper;
+
     @Override
     @Transactional
-    public FileInfo uploadFile(Account account, MultipartFile file) throws IOException {
+    public FileInfoDto uploadFile(Account account, MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             throw new IllegalArgumentException("File is empty");
         }
@@ -63,7 +68,7 @@ public class FileServiceImpl implements FileService {
         Path path = Paths.get(dirPath + file.getOriginalFilename());
         Files.write(path, bytes);
 
-        return fileInfo;
+        return fileInfoMapper.mapToDto(fileInfo);
     }
 
     @Override
