@@ -382,5 +382,30 @@
         <addUniqueConstraint tableName="ACCOUNT" columnNames="EMAIL"/>
     </changeSet>
 
+    <changeSet id="07061059" author="eugene">
+        <createTable tableName="FILE_INFO">
+            <column name="FILE_INFO_ID" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="FILENAME" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONTENT_TYPE" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PATH" type="varchar(2048)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="SIZE" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATE_TIME" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FINISH_TIME" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
 
 </databaseChangeLog>
