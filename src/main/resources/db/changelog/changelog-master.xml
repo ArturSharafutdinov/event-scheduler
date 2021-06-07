@@ -348,7 +348,7 @@
             <column name="CHAT_ROOM_ID" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="ENTITY_ID" type="varchar(255)">
+            <column name="KEY" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="TYPE" type="varchar(255)">
@@ -376,6 +376,10 @@
                 <constraints nullable="false" foreignKeyName="fk_chat_message_chat_room_id" references="CHAT_ROOM(CHAT_ROOM_ID)"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="06061228" author="eugene">
+        <addUniqueConstraint tableName="ACCOUNT" columnNames="EMAIL"/>
     </changeSet>
 
 

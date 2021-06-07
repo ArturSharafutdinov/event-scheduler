@@ -12,13 +12,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "CHAT_ROOM")
-@AttributeOverride(name = "id", column = @Column(name = "CHAT_ROOM_ID"))
+@AttributeOverride(name = "uuid", column = @Column(name = "CHAT_ROOM_ID"))
 public class ChatRoom extends UUIDEntity {
 
     // if type.equals(Event) -> findEventById(entityId)
     // if type.equals(PRIVATE) -> ищем по сумме полей(TODO)
-    @Column(name = "ENTITY_ID", nullable = false)
-    private String entityId;
+    @Column(name = "KEY", nullable = false)
+    private String key;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
@@ -30,12 +30,12 @@ public class ChatRoom extends UUIDEntity {
 //    @Column(name = "CHAT_BLOCKED")
 //    private Boolean chatBlocked;
 
-    public String getEntityId() {
-        return entityId;
+    public String getKey() {
+        return key;
     }
 
-    public void setEntityId(String entityId) {
-        this.entityId = entityId;
+    public void setKey(String entityId) {
+        this.key = entityId;
     }
 
     public ChatRoomType getType() {
