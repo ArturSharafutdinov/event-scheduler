@@ -1,8 +1,11 @@
 package ru.ivanov.evgeny.eventscheduler.persistence.domain;
 
+import ru.ivanov.evgeny.eventscheduler.persistence.common.converters.EventDateConverter;
 import ru.ivanov.evgeny.eventscheduler.persistence.common.identity.UUIDEntity;
+import ru.ivanov.evgeny.eventscheduler.persistence.enums.InviteStatus;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -18,11 +21,13 @@ public class InviteRequest extends UUIDEntity {
     @JoinColumn(name = "ACCOUNT_ID", nullable = false)
     private Account account;
 
+    @Convert(converter = EventDateConverter.class)
     @Column(name = "CREATE_TIME")
-    private Date createTime;
+    private LocalDateTime createTime;
 
+    @Convert(converter = EventDateConverter.class)
     @Column(name = "FINISH_TIME")
-    private Date finishTime;
+    private LocalDateTime finishTime;
 
     // Почему должен попасть именно этот account и т.д
     @Column(name = "DESCRIPTION")
@@ -45,19 +50,19 @@ public class InviteRequest extends UUIDEntity {
         this.account = account;
     }
 
-    public Date getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 
-    public Date getFinishTime() {
+    public LocalDateTime getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(Date finishTime) {
+    public void setFinishTime(LocalDateTime finishTime) {
         this.finishTime = finishTime;
     }
 
@@ -79,11 +84,5 @@ public class InviteRequest extends UUIDEntity {
 
     public void setInviteStatus(InviteStatus inviteStatus) {
         this.inviteStatus = inviteStatus;
-    }
-
-    public enum InviteStatus {
-        APPROVED,
-        REJECTED,
-        PROCESSING
     }
 }
