@@ -11,8 +11,9 @@ import ru.ivanov.evgeny.eventscheduler.persistence.domain.Event;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.InviteRequest;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.InviteRequestDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.MinimalInviteRequestDto;
+import ru.ivanov.evgeny.eventscheduler.persistence.enums.InviteStatus;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -40,7 +41,7 @@ public class InviteServiceImpl implements InviteService {
         } else {
             inviteRequest = new InviteRequest();
             inviteRequest.setCreateTime(
-                    new Date()
+                    LocalDateTime.now()
             );
             Account account = simpleDao.findById(Account.class, minimalInviteRequestDto.getAccountId());
             Assert.notNull(account);
@@ -56,12 +57,13 @@ public class InviteServiceImpl implements InviteService {
                     event
             );
             inviteRequest.setInviteStatus(
-                    InviteRequest.InviteStatus.PROCESSING
+                    InviteStatus.PROCESSING
             );
+            inviteRequest.setDescription(
+                    minimalInviteRequestDto.getDescription()
+            );
+            inviteRequestRepository.save(inviteRequest);
         }
-        inviteRequest.setDescription(
-                minimalInviteRequestDto.getDescription()
-        );
 
     }
 
@@ -71,7 +73,7 @@ public class InviteServiceImpl implements InviteService {
         InviteRequest inviteRequest = simpleDao.findById(InviteRequest.class, inviteRequestId);
         Assert.notNull(inviteRequest);
 
-        setInviteRequestStatusAndUpdate(inviteRequest, InviteRequest.InviteStatus.REJECTED);
+        setInviteRequestStatusAndUpdate(inviteRequest, InviteStatus.REJECTED);
     }
 
     @Override
@@ -79,11 +81,11 @@ public class InviteServiceImpl implements InviteService {
     public void approveInvite(UUID inviteRequestId) {
         InviteRequest inviteRequest = simpleDao.findById(InviteRequest.class, inviteRequestId);
         Assert.notNull(inviteRequest);
-
-        setInviteRequestStatusAndUpdate(inviteRequest, InviteRequest.InviteStatus.APPROVED);
+        inviteRequest.setFinishTime(LocalDateTime.now());
+        setInviteRequestStatusAndUpdate(inviteRequest, InviteStatus.APPROVED);
     }
 
-    private void setInviteRequestStatusAndUpdate(InviteRequest inviteRequestStatus, InviteRequest.InviteStatus status) {
+    private void setInviteRequestStatusAndUpdate(InviteRequest inviteRequestStatus, InviteStatus status) {
         inviteRequestStatus.setInviteStatus(
                 status
         );
@@ -92,8 +94,8 @@ public class InviteServiceImpl implements InviteService {
 
     @Override
     @Transactional(readOnly = true)
-    public Set<InviteRequestDto> fetchAllEventInviteRequest(UUID evenId) {
-        Event event = simpleDao.findById(Event.class, evenId);
+    public Set<InviteRequestDto> fetchAllEventInviteRequest(UUID eventId) {
+        Event event = simpleDao.findById(Event.class, eventId);
         return null;
     }
 
@@ -102,5 +104,17 @@ public class InviteServiceImpl implements InviteService {
     public Set<InviteRequest> fetchAllUserInviteRequest(Long accountId) {
         return null;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public InviteStatus getInviteStatus(Account account, UUID eventId) {
+        Event event = simpleDao.findById(Event.class, eventId);
+        InviteRequest request = inviteRequestRepository.findByAccountAndEvent(account, event);
+        if (request == null) {
+            return InviteStatus.NO_STATUS;
+        }
+        return request.getInviteStatus();
+    }
+
 
 }
