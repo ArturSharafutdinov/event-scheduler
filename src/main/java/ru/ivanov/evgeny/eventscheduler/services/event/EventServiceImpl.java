@@ -12,9 +12,11 @@ import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Event;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.EventMember;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventDto;
+import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventMemberDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.EventRole;
 import ru.ivanov.evgeny.eventscheduler.services.auth.AccountService;
 import ru.ivanov.evgeny.eventscheduler.services.mappers.EventMapper;
+import ru.ivanov.evgeny.eventscheduler.services.mappers.EventMemberMapper;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -35,6 +37,9 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private EventMapper eventMapper;
+
+    @Autowired
+    private EventMemberMapper eventMemberMapper;
 
     @Override
     @Transactional
@@ -168,6 +173,21 @@ public class EventServiceImpl implements EventService {
         eventMember.setAccount(account);
         eventMember.setRole(eventRole);
         eventMemberRepository.save(eventMember);
+    }
+
+    @Transactional(readOnly = true)
+    public EventMemberDto checkAccountAsEventMember(Account account, UUID eventId) {
+        Optional<Event> event = eventRepository.findById(eventId);
+        if (event.isEmpty()) {
+            throw new IllegalArgumentException("Now such event");
+        }
+        EventMember eventMember = eventMemberRepository.findByAccountAndEvent(account, event.get());
+        if (eventMember == null) {
+            return new EventMemberDto();
+        }
+
+        return eventMemberMapper.mapToDto(eventMember);
+
     }
 
 

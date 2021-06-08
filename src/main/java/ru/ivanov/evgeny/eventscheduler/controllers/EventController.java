@@ -3,8 +3,10 @@ package ru.ivanov.evgeny.eventscheduler.controllers;
 import org.geojson.FeatureCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.CategoryDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventDto;
+import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventMemberDto;
 import ru.ivanov.evgeny.eventscheduler.services.category.CategoryService;
 import ru.ivanov.evgeny.eventscheduler.services.event.EventService;
 
@@ -46,6 +48,11 @@ public class EventController {
     @GetMapping("/categories")
     public List<CategoryDto> getCategories() {
         return categoryService.fetchAllCategories();
+    }
+
+    @GetMapping("/event/checkUserAsEventMember")
+    public EventMemberDto checkUserAsEventMember(Account account, @RequestParam UUID eventId) {
+        return eventService.checkAccountAsEventMember(account, eventId);
     }
 
 }
