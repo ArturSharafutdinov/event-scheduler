@@ -101,6 +101,7 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.countAccountByEmail(email) != 0;
     }
 
+    @Override
     public HashMap<String, Object> login(AuthAccountDto authAccountDto) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(authAccountDto.getEmail(), authAccountDto.getPassword());
@@ -111,10 +112,12 @@ public class AccountServiceImpl implements AccountService {
 
         String token = tokenProvider.createToken(authentication, true);
         final JwtAccountDto jwtUser = (JwtAccountDto) authentication.getPrincipal();
+        final AccountDto accountDto = accountMapper.mapToDto(accountRepository.findById(jwtUser.getId()).get());
 
         return new HashMap<>() {{
             put("token", "Bearer " + token);
-            put("user", jwtUser);
+            put("userAccessInfo", jwtUser);
+            put("userPersonalInfo",accountDto);
         }};
     }
 
