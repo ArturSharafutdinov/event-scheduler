@@ -11,15 +11,30 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="USERNAME" type="varchar(64)">
-                <constraints nullable="false"/>
+                <constraints unique="true" nullable="false"/>
             </column>
             <column name="PASSWORD" type="varchar(500)">
                 <constraints nullable="false"/>
             </column>
             <column name="EMAIL" type="varchar(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="FIRST_NAME" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="IS_ENABLED" type="boolean">
+            <column name="LAST_NAME" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AGE" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="GENDER" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CITY" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_ENABLED" type="boolean" defaultValue="false">
                 <constraints nullable="false"/>
             </column>
             <column name="ROLE" type="varchar(25)">
@@ -126,6 +141,11 @@
             <column name="USERNAME" value="ADMIN"/>
             <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
             <column name="EMAIL" value="admin@ya.ru"/>
+            <column name="FIRST_NAME" value="ADMIN"/>
+            <column name="LAST_NAME" value="ADMIN"/>
+            <column name="AGE" value="22"/>
+            <column name="GENDER" value="MALE"/>
+            <column name="CITY" value="KAZAN"/>
             <column name="IS_ENABLED" value="TRUE"/>
             <column name="ROLE" value="ADMIN"/>
         </insert>
@@ -346,7 +366,7 @@
         </insert>
 
 
-        <!--        <insert tableName="EVENT">-->
+        <!--        <insert tableName="EVENT_MEMBER">-->
         <!--            <column name="EVENT_ID" value=""/>-->
         <!--            <column name="EVENT_MEMBER_ID" value=""/>-->
         <!--            <column name="ACCOUNT_ID" value="1"/>-->
@@ -382,16 +402,14 @@
             </column>
             <column name="FINISH_TIME" type="timestamp"/>
             <column name="AUTHOR_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_chat_message_account_id" references="ACCOUNT(ACCOUNT_ID)"/>
+                <constraints nullable="false" foreignKeyName="fk_chat_message_account_id"
+                             references="ACCOUNT(ACCOUNT_ID)"/>
             </column>
             <column name="ROOM_ID" type="uuid">
-                <constraints nullable="false" foreignKeyName="fk_chat_message_chat_room_id" references="CHAT_ROOM(CHAT_ROOM_ID)"/>
+                <constraints nullable="false" foreignKeyName="fk_chat_message_chat_room_id"
+                             references="CHAT_ROOM(CHAT_ROOM_ID)"/>
             </column>
         </createTable>
-    </changeSet>
-
-    <changeSet id="06061228" author="eugene">
-        <addUniqueConstraint tableName="ACCOUNT" columnNames="EMAIL"/>
     </changeSet>
 
     <changeSet id="07061059" author="eugene">
@@ -417,6 +435,39 @@
             </column>
             <column name="FINISH_TIME" type="timestamp"/>
         </createTable>
+    </changeSet>
+
+    <changeSet id="07061734" author="Artur">
+        <addColumn tableName="ACCOUNT">
+            <column name="FILE_INFO_ID" type="uuid">
+                <constraints nullable="true" foreignKeyName="fk_account_file_info_id"
+                             references="FILE_INFO(FILE_INFO_ID)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="08061031" author="Artur">
+        <insert tableName="ACCOUNT">
+            <column name="USERNAME" value="USER"/>
+            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
+            <column name="EMAIL" value="user@ya.ru"/>
+            <column name="FIRST_NAME" value="USER"/>
+            <column name="LAST_NAME" value="USER"/>
+            <column name="AGE" value="22"/>
+            <column name="GENDER" value="MALE"/>
+            <column name="CITY" value="KAZAN"/>
+            <column name="IS_ENABLED" value="TRUE"/>
+            <column name="ROLE" value="USER"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="08061032" author="Artur">
+        <insert tableName="EVENT_MEMBER">
+            <column name="EVENT_ID" value="aea7911b-17bc-4af4-873d-4a189169bdd3"/>
+            <column name="EVENT_MEMBER_ID" value="3b274a76-c82c-11eb-b8bc-0242ac130003"/>
+            <column name="ACCOUNT_ID" value="5"/>
+            <column name="ROLE" value="USER"/>
+        </insert>
     </changeSet>
 
 
