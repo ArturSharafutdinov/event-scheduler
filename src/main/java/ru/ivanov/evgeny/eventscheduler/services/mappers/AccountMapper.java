@@ -1,11 +1,15 @@
 package ru.ivanov.evgeny.eventscheduler.services.mappers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.AccountDto;
 
 @Component
 public class AccountMapper {
+
+    @Autowired
+    private FileInfoMapper fileInfoMapper;
 
     public Account mapToEntity(AccountDto accountDto) {
         Account account = new Account();
@@ -34,6 +38,7 @@ public class AccountMapper {
         accountDto.setAge(account.getAge());
         accountDto.setCity(accountDto.getCity());
         accountDto.setGender(account.getGender());
+        accountDto.setFileInfo(fileInfoMapper.mapToDto(account.getImageInfo()));
 
         return accountDto;
     }
