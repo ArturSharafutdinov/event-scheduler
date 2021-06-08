@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.ivanov.evgeny.eventscheduler.persistence.dao.AccountRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.AccountDto;
-import ru.ivanov.evgeny.eventscheduler.persistence.enums.Role;
 import ru.ivanov.evgeny.eventscheduler.services.auth.AccountService;
 import ru.ivanov.evgeny.eventscheduler.services.files.FileService;
 
@@ -34,9 +32,9 @@ public class AccountController {
         System.out.println(accountId);
     }
 
-    @PostMapping("/user/avatar/{fileInfoId}")
-    public void saveUserAvatar(Account account, @PathVariable UUID fileInfoId) {
-        fileService.saveUserAvatar(account, fileInfoId);
+    @PostMapping("/account/avatar/{fileInfoId}")
+    public void saveAccountAvatar(Account account, @PathVariable UUID fileInfoId) {
+        fileService.saveAccountAvatar(account, fileInfoId);
     }
 
 }

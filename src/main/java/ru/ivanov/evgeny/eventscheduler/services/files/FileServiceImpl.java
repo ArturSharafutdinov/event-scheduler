@@ -106,7 +106,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     @Transactional
-    public void saveUserAvatar(Account account, UUID fileInfoId) {
+    public void saveAccountAvatar(Account account, UUID fileInfoId) {
         Account user = OptionalUtil.checkExistOrThrowException(accountRepository.findById(account.getId()));
 
         FileInfo fileInfo = OptionalUtil.checkExistOrThrowException(fileRepository.findById(fileInfoId));
