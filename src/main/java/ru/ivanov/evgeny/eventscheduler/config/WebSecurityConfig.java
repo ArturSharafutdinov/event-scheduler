@@ -69,12 +69,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/auth").permitAll()
+                .antMatchers("/test").permitAll()
                 .antMatchers("/signUp").permitAll()
                 .antMatchers("/event").permitAll()
                 .antMatchers("/event/*").permitAll()
+                .antMatchers("/chat/event/**").permitAll()
+                .antMatchers("/chat/EVENT/**").permitAll()
                 .antMatchers("/categories").permitAll()
                 .antMatchers("/ws/**").permitAll()
                 .antMatchers("/events").permitAll()
+                .antMatchers("/event/checkUserAsEventMember").permitAll()
+                .antMatchers("/files/**").permitAll()
 
                 .anyRequest().authenticated()
 
