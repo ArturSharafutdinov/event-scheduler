@@ -7,6 +7,7 @@ import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.CategoryDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventMemberDto;
+import ru.ivanov.evgeny.eventscheduler.persistence.dto.filters.EventFilterByCategory;
 import ru.ivanov.evgeny.eventscheduler.services.category.CategoryService;
 import ru.ivanov.evgeny.eventscheduler.services.event.EventService;
 
@@ -42,6 +43,16 @@ public class EventController {
         Double[] longitude = {bbox.get(1), bbox.get(3)};
 
         return eventService.getEventsByBounds(latitude, longitude);
+
+    }
+
+    @GetMapping("/events/filtered")
+    public FeatureCollection getFilteredEventsByBounds(@RequestParam List<Double> bbox, @RequestParam List<String> categories) {
+        Double[] latitude = {bbox.get(0), bbox.get(2)};
+        Double[] longitude = {bbox.get(1), bbox.get(3)};
+        EventFilterByCategory eventFilterByCategory = new EventFilterByCategory(categories);
+
+        return eventService.getEventsByBoundsWithFilter(latitude, longitude, eventFilterByCategory);
 
     }
 
