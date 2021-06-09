@@ -87,6 +87,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/invite/decline").permitAll()
                 .antMatchers("/files/**").permitAll()
                 .antMatchers("/account/avatar/defaultImage").permitAll()
+                .antMatchers("/account/avatar/**").permitAll()
 
                 .anyRequest().authenticated()
 
