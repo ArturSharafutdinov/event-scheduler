@@ -11,7 +11,6 @@ import ru.ivanov.evgeny.eventscheduler.persistence.dto.AccountDto;
 import ru.ivanov.evgeny.eventscheduler.services.auth.AccountService;
 import ru.ivanov.evgeny.eventscheduler.services.files.FileService;
 
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
@@ -40,6 +39,12 @@ public class AccountController {
     @GetMapping("/account/avatar/defaultImage")
     public ResponseEntity<Resource> getDefaultImage(Account account, HttpServletRequest request){
         return fileService.load(account, UUID.fromString("432518a0-72d2-4f38-84bc-c6d220af6c1d"),request);
+    }
+
+    @GetMapping("/account/getAvatar")
+    @ResponseBody
+    public ResponseEntity<Resource> getAccountAvatar(Account account, HttpServletRequest request) {
+        return fileService.loadAvatar(account, request);
     }
 
 }

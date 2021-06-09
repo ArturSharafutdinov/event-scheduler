@@ -115,6 +115,15 @@ public class FileServiceImpl implements FileService {
         accountRepository.save(user);
     }
 
+    @Override
+    public ResponseEntity<Resource> loadAvatar(Account account, HttpServletRequest request) {
+        FileInfo fileInfo = account.getImageInfo();
+        if (fileInfo != null) {
+            return load(account, (UUID) fileInfo.getId(), request);
+        }
+        return null;
+    }
+
     private Resource loadFileAsResource(String filePath) {
         try {
             // Example
