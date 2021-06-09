@@ -1,18 +1,22 @@
 package ru.ivanov.evgeny.eventscheduler.services.event;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.ivanov.evgeny.eventscheduler.persistence.dao.CategoryRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.EventMemberRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.EventRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
+import ru.ivanov.evgeny.eventscheduler.persistence.domain.Category;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Event;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.EventMember;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventMemberDto;
+import ru.ivanov.evgeny.eventscheduler.persistence.dto.filters.EventFilterByCategory;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.EventRole;
 import ru.ivanov.evgeny.eventscheduler.services.auth.AccountService;
 import ru.ivanov.evgeny.eventscheduler.services.mappers.EventMapper;
@@ -40,6 +44,9 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private EventMemberMapper eventMemberMapper;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     @Transactional
@@ -81,6 +88,27 @@ public class EventServiceImpl implements EventService {
     @Transactional(readOnly = true)
     public FeatureCollection getEventsByBounds(Double[] latitude, Double[] longitude) {
         List<Event> events = eventRepository.findAllByLatitudeBetweenAndLongitudeBetween(latitude[0], latitude[1], longitude[0], longitude[1]);
+        return createFeatureCollectionFromEvents(events);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public FeatureCollection getEventsByBoundsWithFilter(Double[] latitude, Double[] longitude, EventFilterByCategory filter) {
+        List<Category> categories = fetchCategoryFromFilter(filter);
+        List<Event> events = eventRepository.findAllByLatitudeBetweenAndLongitudeBetween(latitude[0], latitude[1], longitude[0], longitude[1]);
+
+        if (CollectionUtils.isEmpty(categories)) {
+            return createFeatureCollectionFromEvents(events);
+        } else {
+            List<Event> filteredEvents = new ArrayList<>();
+            for (Event event : events) {
+                if (categories.contains(event.getCategory())) filteredEvents.add(event);
+            }
+            return createFeatureCollectionFromEvents(filteredEvents);
+        }
+    }
+
+    private FeatureCollection createFeatureCollectionFromEvents(List<Event> events) {
         List<Feature> features = new ArrayList<>();
         int i = 0;
         for (Event event : events) {
@@ -104,6 +132,19 @@ public class EventServiceImpl implements EventService {
         featureCollection.setFeatures(features);
 
         return featureCollection;
+    }
+
+    private List<Category> fetchCategoryFromFilter(EventFilterByCategory filter) {
+        if (CollectionUtils.isEmpty(filter.getCategoryNames())) {
+            return new ArrayList<>();
+        }
+        List<Category> categories = new ArrayList<>();
+        for (String categoryName : filter.getCategoryNames()) {
+            Category category = categoryRepository.findByName(categoryName);
+            if (category == null) throw new IllegalArgumentException("Illegal category name: ".concat(categoryName));
+            categories.add(category);
+        }
+        return categories;
     }
 
     private String getEventStartTimeString(LocalDateTime eventStartTime) {
