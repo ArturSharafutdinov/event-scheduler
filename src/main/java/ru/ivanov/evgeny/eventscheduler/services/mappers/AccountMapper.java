@@ -38,7 +38,7 @@ public class AccountMapper {
         accountDto.setAge(account.getAge());
         accountDto.setCity(accountDto.getCity());
         accountDto.setGender(account.getGender());
-        accountDto.setFileInfo(fileInfoMapper.mapToDto(account.getImageInfo()));
+        if (account.getImageInfo() != null) accountDto.setFileInfo(fileInfoMapper.mapToDto(account.getImageInfo()));
 
         return accountDto;
     }
