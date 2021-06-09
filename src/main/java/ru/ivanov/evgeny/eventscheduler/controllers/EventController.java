@@ -66,4 +66,9 @@ public class EventController {
         return eventService.checkAccountAsEventMember(account, eventId);
     }
 
+    @GetMapping("/event/members")
+    public List<EventMemberDto> fetchEventMembers(Account account, @RequestParam UUID eventId) {
+        return eventService.fetchEventMembersByEvent(account, eventId);
+    }
+
 }

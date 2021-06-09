@@ -14,6 +14,8 @@ public class EventMemberDto {
 
     private EventRole role;
 
+    private FileInfoDto fileInfoDto;
+
     public UUID getId() {
         return id;
     }
@@ -44,5 +46,13 @@ public class EventMemberDto {
 
     public void setRole(EventRole role) {
         this.role = role;
+    }
+
+    public FileInfoDto getFileInfoDto() {
+        return fileInfoDto;
+    }
+
+    public void setFileInfoDto(FileInfoDto fileInfoDto) {
+        this.fileInfoDto = fileInfoDto;
     }
 }

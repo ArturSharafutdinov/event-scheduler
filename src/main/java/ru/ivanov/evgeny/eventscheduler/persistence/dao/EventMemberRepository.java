@@ -5,8 +5,10 @@ import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Event;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.EventMember;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface EventMemberRepository extends JpaRepository<EventMember, UUID> {
     EventMember findByAccountAndEvent(Account account, Event event);
+    List<EventMember> findAllByEvent(Event event);
 }

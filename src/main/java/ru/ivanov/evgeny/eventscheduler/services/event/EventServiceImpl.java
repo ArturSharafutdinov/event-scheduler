@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.CategoryRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.EventMemberRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.EventRepository;
+import ru.ivanov.evgeny.eventscheduler.persistence.dao.common.SimpleDao;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Category;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Event;
@@ -21,6 +22,7 @@ import ru.ivanov.evgeny.eventscheduler.persistence.enums.EventRole;
 import ru.ivanov.evgeny.eventscheduler.services.auth.AccountService;
 import ru.ivanov.evgeny.eventscheduler.services.mappers.EventMapper;
 import ru.ivanov.evgeny.eventscheduler.services.mappers.EventMemberMapper;
+import ru.ivanov.evgeny.eventscheduler.util.OptionalUtil;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -47,6 +49,9 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private SimpleDao simpleDao;
 
     @Override
     @Transactional
@@ -231,5 +236,13 @@ public class EventServiceImpl implements EventService {
 
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<EventMemberDto> fetchEventMembersByEvent(Account account, UUID eventId) {
+        Event event = OptionalUtil.checkExistOrThrowException(eventRepository.findById(eventId));
+        List<EventMember> eventMembers = eventMemberRepository.findAllByEvent(event);
+        Account byId = simpleDao.findById(Account.class, account.getId());
+        return eventMembers.stream().map(item -> eventMemberMapper.mapToDto(item, byId)).collect(Collectors.toList());
+    }
 
 }

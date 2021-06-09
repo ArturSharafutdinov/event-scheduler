@@ -26,4 +26,6 @@ public interface EventService {
 
     EventMemberDto checkAccountAsEventMember(Account account, UUID eventId);
 
+    List<EventMemberDto> fetchEventMembersByEvent(Account account, UUID eventId);
+
 }
