@@ -81,6 +81,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/event/checkUserAsEventMember").permitAll()
                 .antMatchers("/invite/status").permitAll()
                 .antMatchers("/invite/register").permitAll()
+                .antMatchers("/invite").permitAll()
+                .antMatchers("/invite/accept").permitAll()
+                .antMatchers("/invite/decline").permitAll()
                 .antMatchers("/files/**").permitAll()
 
                 .anyRequest().authenticated()

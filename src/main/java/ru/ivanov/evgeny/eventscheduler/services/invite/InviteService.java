@@ -12,11 +12,11 @@ import java.util.UUID;
 public interface InviteService {
     void registerInvite(MinimalInviteRequestDto minimalInviteRequestDto);
 
-    void rejectInvite(UUID inviteRequestId);
+    void rejectInvite(Account account, UUID inviteRequestId);
 
-    void approveInvite(UUID inviteRequestId);
+    void approveInvite(Account account, UUID inviteRequestId);
 
-    Set<InviteRequestDto> fetchAllEventInviteRequest(UUID eventId);
+    Set<InviteRequestDto> fetchAllEventInviteRequest(Account account, UUID eventId);
 
     Set<InviteRequest> fetchAllUserInviteRequest(Long accountId);
 

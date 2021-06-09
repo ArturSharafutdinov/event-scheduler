@@ -461,15 +461,6 @@
         </insert>
     </changeSet>
 
-    <changeSet id="08061032" author="Artur">
-        <insert tableName="EVENT_MEMBER">
-            <column name="EVENT_ID" value="aea7911b-17bc-4af4-873d-4a189169bdd3"/>
-            <column name="EVENT_MEMBER_ID" value="3b274a76-c82c-11eb-b8bc-0242ac130003"/>
-            <column name="ACCOUNT_ID" value="5"/>
-            <column name="ROLE" value="USER"/>
-        </insert>
-    </changeSet>
-
     <changeSet id="08061654" author="Artur">
         <addColumn tableName="INVITE_REQUEST">
             <column name="CREATE_TIME" type="timestamp">
@@ -482,6 +473,69 @@
             </column>
         </addColumn>
 
+    </changeSet>
+
+    <changeSet id="08061903" author="Artur">
+        <insert tableName="ACCOUNT">
+            <column name="USERNAME" value="Артур"/>
+            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
+            <column name="EMAIL" value="artur@ya.ru"/>
+            <column name="FIRST_NAME" value="USER"/>
+            <column name="LAST_NAME" value="USER"/>
+            <column name="AGE" value="22"/>
+            <column name="GENDER" value="MALE"/>
+            <column name="CITY" value="KAZAN"/>
+            <column name="IS_ENABLED" value="TRUE"/>
+            <column name="ROLE" value="USER"/>
+        </insert>
+        <insert tableName="ACCOUNT">
+            <column name="USERNAME" value="Евгений"/>
+            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
+            <column name="EMAIL" value="evgeny@ya.ru"/>
+            <column name="FIRST_NAME" value="USER"/>
+            <column name="LAST_NAME" value="USER"/>
+            <column name="AGE" value="22"/>
+            <column name="GENDER" value="MALE"/>
+            <column name="CITY" value="KAZAN"/>
+            <column name="IS_ENABLED" value="TRUE"/>
+            <column name="ROLE" value="USER"/>
+        </insert>
+        <insert tableName="ACCOUNT">
+            <column name="USERNAME" value="Артём"/>
+            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
+            <column name="EMAIL" value="artem@ya.ru"/>
+            <column name="FIRST_NAME" value="USER"/>
+            <column name="LAST_NAME" value="USER"/>
+            <column name="AGE" value="22"/>
+            <column name="GENDER" value="MALE"/>
+            <column name="CITY" value="KAZAN"/>
+            <column name="IS_ENABLED" value="TRUE"/>
+            <column name="ROLE" value="USER"/>
+        </insert>
+        <insert tableName="ACCOUNT">
+            <column name="USERNAME" value="Никита"/>
+            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
+            <column name="EMAIL" value="nikita@ya.ru"/>
+            <column name="FIRST_NAME" value="USER"/>
+            <column name="LAST_NAME" value="USER"/>
+            <column name="AGE" value="22"/>
+            <column name="GENDER" value="MALE"/>
+            <column name="CITY" value="KAZAN"/>
+            <column name="IS_ENABLED" value="TRUE"/>
+            <column name="ROLE" value="USER"/>
+        </insert>
+        <insert tableName="ACCOUNT">
+            <column name="USERNAME" value="Динар"/>
+            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
+            <column name="EMAIL" value="dinar@ya.ru"/>
+            <column name="FIRST_NAME" value="USER"/>
+            <column name="LAST_NAME" value="USER"/>
+            <column name="AGE" value="22"/>
+            <column name="GENDER" value="MALE"/>
+            <column name="CITY" value="KAZAN"/>
+            <column name="IS_ENABLED" value="TRUE"/>
+            <column name="ROLE" value="USER"/>
+        </insert>
     </changeSet>
 
 
