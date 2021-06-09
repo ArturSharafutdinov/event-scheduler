@@ -5,13 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.AccountDto;
 import ru.ivanov.evgeny.eventscheduler.services.auth.AccountService;
@@ -40,6 +34,11 @@ public class AccountController {
     @PostMapping("/account/avatar/{fileInfoId}")
     public void saveAccountAvatar(Account account, @PathVariable UUID fileInfoId) {
         fileService.saveAccountAvatar(account, fileInfoId);
+    }
+
+    @GetMapping("/account/avatar/defaultImage")
+    public ResponseEntity<Resource> getDefaultImage(Account account, HttpServletRequest request){
+        return fileService.load(account, UUID.fromString("432518a0-72d2-4f38-84bc-c6d220af6c1d"),request);
     }
 
     @GetMapping("/account/getAvatar")
