@@ -10,11 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import ru.ivanov.evgeny.eventscheduler.persistence.dao.AccountRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.FileRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.Account;
 import ru.ivanov.evgeny.eventscheduler.persistence.domain.FileInfo;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.FileInfoDto;
 import ru.ivanov.evgeny.eventscheduler.services.mappers.FileInfoMapper;
+import ru.ivanov.evgeny.eventscheduler.util.OptionalUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -36,6 +38,8 @@ public class FileServiceImpl implements FileService {
 
     @Autowired
     private FileInfoMapper fileInfoMapper;
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Override
     @Transactional
@@ -98,6 +102,17 @@ public class FileServiceImpl implements FileService {
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+    }
+
+    @Override
+    @Transactional
+    public void saveAccountAvatar(Account account, UUID fileInfoId) {
+        Account user = OptionalUtil.checkExistOrThrowException(accountRepository.findById(account.getId()));
+
+        FileInfo fileInfo = OptionalUtil.checkExistOrThrowException(fileRepository.findById(fileInfoId));
+
+        user.setImageInfo(fileInfo);
+        accountRepository.save(user);
     }
 
     private Resource loadFileAsResource(String filePath) {

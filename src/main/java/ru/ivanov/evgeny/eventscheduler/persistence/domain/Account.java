@@ -46,7 +46,7 @@ public class Account extends LongIdEntity {
     @Column(name = "ROLE")
     private Role role;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FILE_INFO_ID")
     private FileInfo imageInfo;
 

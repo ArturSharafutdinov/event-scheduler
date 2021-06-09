@@ -17,4 +17,6 @@ public interface FileService {
 
     ResponseEntity<Resource> load(Account account, UUID fileInfoId, HttpServletRequest request);
 
+    void saveAccountAvatar(Account account, UUID fileInfoId);
+
 }

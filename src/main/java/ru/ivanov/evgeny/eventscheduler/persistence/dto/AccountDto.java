@@ -21,6 +21,8 @@ public class AccountDto extends LongIdEntityDto {
 
     private String city;
 
+    private FileInfoDto fileInfo;
+
     public String getUsername() {
         return username;
     }
@@ -83,5 +85,13 @@ public class AccountDto extends LongIdEntityDto {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public FileInfoDto getFileInfo() {
+        return fileInfo;
+    }
+
+    public void setFileInfo(FileInfoDto fileInfo) {
+        this.fileInfo = fileInfo;
     }
 }
