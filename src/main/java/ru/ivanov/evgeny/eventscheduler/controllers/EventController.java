@@ -47,7 +47,7 @@ public class EventController {
     }
 
     @GetMapping("/events/filtered")
-    public FeatureCollection getFilteredEventsByBounds(@RequestParam List<Double> bbox, @RequestParam List<String> categories) {
+    public FeatureCollection getFilteredEventsByBounds(@RequestParam List<Double> bbox, @RequestParam List<Long> categories) {
         Double[] latitude = {bbox.get(0), bbox.get(2)};
         Double[] longitude = {bbox.get(1), bbox.get(3)};
         EventFilterByCategory eventFilterByCategory = new EventFilterByCategory(categories);

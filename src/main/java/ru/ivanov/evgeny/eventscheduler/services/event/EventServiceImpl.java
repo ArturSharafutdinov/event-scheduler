@@ -140,13 +140,12 @@ public class EventServiceImpl implements EventService {
     }
 
     private List<Category> fetchCategoryFromFilter(EventFilterByCategory filter) {
-        if (CollectionUtils.isEmpty(filter.getCategoryNames())) {
+        if (CollectionUtils.isEmpty(filter.getCategoryIdList())) {
             return new ArrayList<>();
         }
         List<Category> categories = new ArrayList<>();
-        for (String categoryName : filter.getCategoryNames()) {
-            Category category = categoryRepository.findByName(categoryName);
-            if (category == null) throw new IllegalArgumentException("Illegal category name: ".concat(categoryName));
+        for (Long categoryId : filter.getCategoryIdList()) {
+            Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new IllegalArgumentException("Illegal category id: ".concat(categoryId.toString())));
             categories.add(category);
         }
         return categories;

@@ -3,17 +3,18 @@ package ru.ivanov.evgeny.eventscheduler.persistence.dto.filters;
 import java.util.List;
 
 public class EventFilterByCategory {
-    List<String> categoryNames;
 
-    public EventFilterByCategory(List<String> categoryNames) {
-        this.categoryNames = categoryNames;
+    private List<Long> categoryIdList;
+
+    public List<Long> getCategoryIdList() {
+        return categoryIdList;
     }
 
-    public List<String> getCategoryNames() {
-        return categoryNames;
+    public void setCategoryIdList(List<Long> categoryIdList) {
+        this.categoryIdList = categoryIdList;
     }
 
-    public void setCategoryNames(List<String> categoryNames) {
-        this.categoryNames = categoryNames;
+    public EventFilterByCategory(List<Long> categoryIdList) {
+        this.categoryIdList = categoryIdList;
     }
 }

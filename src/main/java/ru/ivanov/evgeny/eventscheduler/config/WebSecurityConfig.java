@@ -88,6 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/files/**").permitAll()
                 .antMatchers("/account/avatar/defaultImage").permitAll()
                 .antMatchers("/account/avatar/**").permitAll()
+                .antMatchers("/events/filtered").permitAll()
 
                 .anyRequest().authenticated()
 
