@@ -28,7 +28,7 @@ public class AccountMapper {
         account.setAge(accountDto.getAge());
         account.setCity(accountDto.getCity());
         account.setGender(accountDto.getGender());
-        account.setImageInfo(fileRepository.findById(UUID.fromString("432518a0-72d2-4f38-84bc-c6d220af6c1d")).get());
+//        account.setImageInfo(fileRepository.findById(UUID.fromString("432518a0-72d2-4f38-84bc-c6d220af6c1d")).get());
 
         return account;
     }
@@ -43,7 +43,7 @@ public class AccountMapper {
         accountDto.setFirstName(account.getFirstName());
         accountDto.setLastName(account.getLastName());
         accountDto.setAge(account.getAge());
-        accountDto.setCity(accountDto.getCity());
+        accountDto.setCity(account.getCity());
         accountDto.setGender(account.getGender());
         if (account.getImageInfo() != null) accountDto.setFileInfo(fileInfoMapper.mapToDto(account.getImageInfo()));
 

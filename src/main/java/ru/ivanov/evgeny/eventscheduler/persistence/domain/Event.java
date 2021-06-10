@@ -46,8 +46,8 @@ public class Event extends UUIDEntity {
     @Column(name = "MAX_NUMBER_OF_PARTICIPANTS", nullable = false)
     private Integer maxNumberOfParticipants;
 
-    @Column(name = "IS_PRIVATE", nullable = false)
-    private Boolean isPrivate;
+    @Column(name = "PRIVATE_ACCESS", nullable = false)
+    private Boolean privateAccess;
 
     //The first element is longitude, the second is latitude
     @Column(name = "LATITUDE", nullable = false)
@@ -128,12 +128,12 @@ public class Event extends UUIDEntity {
         this.maxNumberOfParticipants = maxNumberOfParticipants;
     }
 
-    public Boolean getPrivate() {
-        return isPrivate;
+    public Boolean getPrivateAccess() {
+        return privateAccess;
     }
 
-    public void setPrivate(Boolean aPrivate) {
-        isPrivate = aPrivate;
+    public void setPrivateAccess(Boolean privateAccess) {
+        this.privateAccess = privateAccess;
     }
 
     public Double getLatitude() {

@@ -30,7 +30,7 @@ public class EventMapper {
         event.setName(eventDto.getName());
         event.setDescription(eventDto.getDescription());
         event.setMaxNumberOfParticipants(eventDto.getMaxNumberOfParticipants());
-        event.setPrivate(eventDto.getPrivate());
+        event.setPrivateAccess(eventDto.getPrivateAccess());
         event.setDuration(eventDto.getDuration());
 
         //account
@@ -64,7 +64,7 @@ public class EventMapper {
         eventDto.setName(event.getName());
         eventDto.setDescription(event.getDescription());
         eventDto.setMaxNumberOfParticipants(event.getMaxNumberOfParticipants());
-        eventDto.setPrivate(event.getPrivate());
+        event.setPrivateAccess(event.getPrivateAccess());
         eventDto.setOwnerId(event.getOwner().getId());
         eventDto.setDuration(event.getDuration());
 
@@ -79,7 +79,7 @@ public class EventMapper {
 //                .boxed()
 //                .toArray(Double[]::new);
         Double[] coordinates = {
-            event.getLatitude(),event.getLongitude()
+                event.getLatitude(), event.getLongitude()
         };
         eventDto.setCategory(categoryMapper.mapToDto(event.getCategory()));
         eventDto.setCoordinates(coordinates);

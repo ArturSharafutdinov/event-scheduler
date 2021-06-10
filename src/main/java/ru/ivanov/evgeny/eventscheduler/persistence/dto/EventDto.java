@@ -27,7 +27,7 @@ public class EventDto extends UUIDEntityDto {
 
     private Integer maxNumberOfParticipants;
 
-    private Boolean isPrivate;
+    private Boolean privateAccess;
 
     private Double[] coordinates;
 
@@ -97,12 +97,12 @@ public class EventDto extends UUIDEntityDto {
         this.maxNumberOfParticipants = maxNumberOfParticipants;
     }
 
-    public Boolean getPrivate() {
-        return isPrivate;
+    public Boolean getPrivateAccess() {
+        return privateAccess;
     }
 
-    public void setPrivate(Boolean aPrivate) {
-        isPrivate = aPrivate;
+    public void setPrivateAccess(Boolean privateAccess) {
+        this.privateAccess = privateAccess;
     }
 
     public Double[] getCoordinates() {
