@@ -7,6 +7,7 @@ import org.geojson.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.ivanov.evgeny.eventscheduler.persistence.dao.AccountRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.CategoryRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.EventMemberRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.EventRepository;
@@ -49,6 +50,9 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Autowired
     private SimpleDao simpleDao;
@@ -240,8 +244,26 @@ public class EventServiceImpl implements EventService {
     public List<EventMemberDto> fetchEventMembersByEvent(Account account, UUID eventId) {
         Event event = OptionalUtil.checkExistOrThrowException(eventRepository.findById(eventId));
         List<EventMember> eventMembers = eventMemberRepository.findAllByEvent(event);
-        Account byId = simpleDao.findById(Account.class, account.getId());
+        Account byId = accountRepository.findByIdEquals(account.getId());
         return eventMembers.stream().map(item -> eventMemberMapper.mapToDto(item, byId)).collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<EventDto> getEventsByUserAsCreator(Account account) {
+        return eventRepository.findAllByOwner(account)
+                .stream()
+                .map(event -> eventMapper.mapToDto(event))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<EventDto> getEventsByUserAsMember(Account account) {
+        return eventMemberRepository.findAllByAccount(account)
+                .stream()
+                .filter(eventMember -> eventMember.getRole() != EventRole.ADMIN)
+                .map(eventMember -> eventMapper.mapToDto(eventMember.getEvent()))
+                .collect(Collectors.toList());
+    }
 }

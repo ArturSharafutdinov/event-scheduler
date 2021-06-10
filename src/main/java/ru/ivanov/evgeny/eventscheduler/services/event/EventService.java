@@ -28,4 +28,8 @@ public interface EventService {
 
     List<EventMemberDto> fetchEventMembersByEvent(Account account, UUID eventId);
 
+    List<EventDto> getEventsByUserAsCreator(Account account);
+
+    List<EventDto> getEventsByUserAsMember(Account account);
+
 }

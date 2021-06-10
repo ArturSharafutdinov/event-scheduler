@@ -10,5 +10,8 @@ import java.util.UUID;
 
 public interface EventMemberRepository extends JpaRepository<EventMember, UUID> {
     EventMember findByAccountAndEvent(Account account, Event event);
+
     List<EventMember> findAllByEvent(Event event);
+
+    List<EventMember> findAllByAccount(Account account);
 }

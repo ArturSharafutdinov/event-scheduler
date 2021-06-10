@@ -12,6 +12,8 @@ public class EventMemberDto {
 
     private Long accountId;
 
+    private AccountDto account;
+
     private EventRole role;
 
     private FileInfoDto fileInfoDto;
@@ -54,5 +56,13 @@ public class EventMemberDto {
 
     public void setFileInfoDto(FileInfoDto fileInfoDto) {
         this.fileInfoDto = fileInfoDto;
+    }
+
+    public AccountDto getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountDto account) {
+        this.account = account;
     }
 }

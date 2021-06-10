@@ -14,6 +14,9 @@ public class EventMemberMapper {
     @Autowired
     private FileInfoMapper fileInfoMapper;
 
+    @Autowired
+    private AccountMapper accountMapper;
+
     public EventMemberDto mapToDto(EventMember eventMember) {
         EventMemberDto eventMemberDto = new EventMemberDto();
 
@@ -21,7 +24,7 @@ public class EventMemberMapper {
         eventMemberDto.setAccountId(eventMember.getAccount().getId());
         eventMemberDto.setEventId((UUID) eventMember.getEvent().getId());
         eventMemberDto.setRole(eventMember.getRole());
-
+        eventMemberDto.setAccount(accountMapper.mapToDto(eventMember.getAccount()));
 
         return eventMemberDto;
     }
