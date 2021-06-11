@@ -7,7 +7,7 @@
 
     <changeSet id="14:58 19.05.21" author="Artur">
         <createTable tableName="ACCOUNT">
-            <column name="ACCOUNT_ID" type="bigint" autoIncrement="true">
+            <column name="ACCOUNT_ID" type="bigint" autoIncrement="true" startWith="1000">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="USERNAME" type="varchar(64)">
@@ -551,6 +551,17 @@
         <!--            <column name="ROLE" value="ADMIN"/>-->
         <!--        </insert>-->
 
+    </changeSet>
+
+    <changeSet id="11061925" author="Artur">
+        <insert tableName="FILE_INFO">
+            <column name="FILE_INFO_ID" value="e4fe2d4c-cad1-11eb-b8bc-0242ac130003"/>
+            <column name="FILENAME" value="default.jpg"/>
+            <column name="CONTENT_TYPE" value="image/jpg"/>
+            <column name="PATH" value="src/main/resources/static/default.jpg"/>
+            <column name="SIZE" value="8911"/>
+            <column name="CREATE_TIME" value="2021-06-11 19:06:08.302"/>
+        </insert>
     </changeSet>
 
 
