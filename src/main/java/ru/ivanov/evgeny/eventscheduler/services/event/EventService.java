@@ -32,4 +32,6 @@ public interface EventService {
 
     List<EventDto> getEventsByUserAsMember(Account account);
 
+    EventDto closeEvent(Account account, UUID eventId);
+
 }

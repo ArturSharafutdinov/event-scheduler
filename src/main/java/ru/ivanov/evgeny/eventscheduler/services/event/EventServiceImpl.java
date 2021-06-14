@@ -96,7 +96,11 @@ public class EventServiceImpl implements EventService {
     @Override
     @Transactional(readOnly = true)
     public FeatureCollection getEventsByBounds(Double[] latitude, Double[] longitude) {
-        List<Event> events = eventRepository.findAllByLatitudeBetweenAndLongitudeBetween(latitude[0], latitude[1], longitude[0], longitude[1]);
+        List<Event> events = eventRepository
+                .findAllByLatitudeBetweenAndLongitudeBetween(latitude[0], latitude[1], longitude[0], longitude[1])
+                .stream()
+                .filter(event -> event.getFinishTime()==null)
+                .collect(Collectors.toList());
         return createFeatureCollectionFromEvents(events);
     }
 
@@ -104,7 +108,11 @@ public class EventServiceImpl implements EventService {
     @Transactional(readOnly = true)
     public FeatureCollection getEventsByBoundsWithFilter(Double[] latitude, Double[] longitude, EventFilterByCategory filter) {
         List<Category> categories = fetchCategoryFromFilter(filter);
-        List<Event> events = eventRepository.findAllByLatitudeBetweenAndLongitudeBetween(latitude[0], latitude[1], longitude[0], longitude[1]);
+        List<Event> events = eventRepository
+                .findAllByLatitudeBetweenAndLongitudeBetween(latitude[0], latitude[1], longitude[0], longitude[1])
+                .stream()
+                .filter(event -> event.getFinishTime()==null)
+                .collect(Collectors.toList());
 
         if (CollectionUtils.isEmpty(categories)) {
             return createFeatureCollectionFromEvents(events);
@@ -265,5 +273,18 @@ public class EventServiceImpl implements EventService {
                 .filter(eventMember -> eventMember.getRole() != EventRole.ADMIN)
                 .map(eventMember -> eventMapper.mapToDto(eventMember.getEvent()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public EventDto closeEvent(Account account, UUID eventId) {
+        Event event = OptionalUtil.checkExistOrThrowException(eventRepository.findById(eventId));
+        if(event.getOwner().equals(account)){
+            event.setFinishTime(LocalDateTime.now());
+            eventRepository.saveAndFlush(event);
+        }else{
+            throw new IllegalArgumentException("Account with id "+account.getId()+" has now access to close this event");
+        }
+        return eventMapper.mapToDto(event);
     }
 }

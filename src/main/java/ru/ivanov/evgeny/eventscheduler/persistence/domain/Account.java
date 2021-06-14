@@ -148,4 +148,14 @@ public class Account extends LongIdEntity {
     public void setInviteRequest(Set<InviteRequest> inviteRequest) {
         this.inviteRequest = inviteRequest;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this)
+            return true;
+        if(obj == null || obj.getClass() != this.getClass())
+            return false;
+        Account account = (Account) obj;
+        return this.getId().equals(account.getId()) && this.getEmail().equals(account.getEmail());
+    }
 }
