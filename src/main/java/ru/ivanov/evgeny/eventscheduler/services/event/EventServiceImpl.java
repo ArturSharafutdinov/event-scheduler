@@ -7,6 +7,7 @@ import org.geojson.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.ivanov.evgeny.eventscheduler.persistence.common.EventFilterByDate;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.AccountRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.CategoryRepository;
 import ru.ivanov.evgeny.eventscheduler.persistence.dao.EventMemberRepository;
@@ -20,11 +21,13 @@ import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.EventMemberDto;
 import ru.ivanov.evgeny.eventscheduler.persistence.dto.filters.EventFilterByCategory;
 import ru.ivanov.evgeny.eventscheduler.persistence.enums.EventRole;
+import ru.ivanov.evgeny.eventscheduler.persistence.enums.EventTimeLimitation;
 import ru.ivanov.evgeny.eventscheduler.services.auth.AccountService;
 import ru.ivanov.evgeny.eventscheduler.services.mappers.EventMapper;
 import ru.ivanov.evgeny.eventscheduler.services.mappers.EventMemberMapper;
 import ru.ivanov.evgeny.eventscheduler.util.OptionalUtil;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.*;
@@ -99,19 +102,25 @@ public class EventServiceImpl implements EventService {
         List<Event> events = eventRepository
                 .findAllByLatitudeBetweenAndLongitudeBetween(latitude[0], latitude[1], longitude[0], longitude[1])
                 .stream()
-                .filter(event -> event.getFinishTime()==null)
+                .filter(event -> event.getFinishTime() == null)
                 .collect(Collectors.toList());
         return createFeatureCollectionFromEvents(events);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public FeatureCollection getEventsByBoundsWithFilter(Double[] latitude, Double[] longitude, EventFilterByCategory filter) {
+    public FeatureCollection getEventsByBoundsWithFilter(
+            Double[] latitude,
+            Double[] longitude,
+            EventFilterByCategory filter,
+            EventFilterByDate filterByDate) {
         List<Category> categories = fetchCategoryFromFilter(filter);
+
         List<Event> events = eventRepository
                 .findAllByLatitudeBetweenAndLongitudeBetween(latitude[0], latitude[1], longitude[0], longitude[1])
                 .stream()
-                .filter(event -> event.getFinishTime()==null)
+                .filter(event -> event.getFinishTime() == null)
+                .filter(event -> checkDateLimitation(event, filterByDate))
                 .collect(Collectors.toList());
 
         if (CollectionUtils.isEmpty(categories)) {
@@ -279,12 +288,41 @@ public class EventServiceImpl implements EventService {
     @Transactional
     public EventDto closeEvent(Account account, UUID eventId) {
         Event event = OptionalUtil.checkExistOrThrowException(eventRepository.findById(eventId));
-        if(event.getOwner().equals(account)){
+        if (event.getOwner().equals(account)) {
             event.setFinishTime(LocalDateTime.now());
             eventRepository.saveAndFlush(event);
-        }else{
-            throw new IllegalArgumentException("Account with id "+account.getId()+" has now access to close this event");
+        } else {
+            throw new IllegalArgumentException("Account with id " + account.getId() + " has now access to close this event");
         }
         return eventMapper.mapToDto(event);
+    }
+
+    private Boolean checkDateLimitation(Event event, EventFilterByDate filterByDate) {
+        LocalDateTime current = LocalDateTime.now();
+        if (filterByDate.getLimitation() != null) {
+            switch (filterByDate.getLimitation()) {
+                case ALL_TIME -> {
+                    return true;
+                }
+                case TODAY -> {
+                    return event.getStartTime().toLocalDate().isEqual(current.toLocalDate());
+                }
+                case TOMORROW -> {
+                    return event.getStartTime().toLocalDate().isBefore(current.plusDays(1).toLocalDate());
+                }
+                case THIS_WEEK -> {
+                    return event.getStartTime().toLocalDate().isBefore(current.plusDays(7).toLocalDate());
+                }
+                case THIS_MONTH -> {
+                    return event.getStartTime().toLocalDate().isBefore(current.plusDays(31).toLocalDate());
+                }
+                default -> {
+                    return false;
+                }
+            }
+        }else{
+            return event.getStartTime().toLocalDate().isEqual(filterByDate.getLimitationDate());
+        }
+
     }
 }
