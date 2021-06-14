@@ -120,8 +120,9 @@ public class EventServiceImpl implements EventService {
                 .findAllByLatitudeBetweenAndLongitudeBetween(latitude[0], latitude[1], longitude[0], longitude[1])
                 .stream()
                 .filter(event -> event.getFinishTime() == null)
-                .filter(event -> checkDateLimitation(event, filterByDate))
                 .collect(Collectors.toList());
+        if(filterByDate.getLimitation()!=null || filterByDate.getLimitationDate()!=null)
+        events = events.stream().filter(event -> checkDateLimitation(event, filterByDate)).collect(Collectors.toList());
 
         if (CollectionUtils.isEmpty(categories)) {
             return createFeatureCollectionFromEvents(events);
