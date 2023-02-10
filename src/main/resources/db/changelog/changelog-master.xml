@@ -4,565 +4,169 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-
-    <changeSet id="14:58 19.05.21" author="Artur">
-        <createTable tableName="ACCOUNT">
-            <column name="ACCOUNT_ID" type="bigint" autoIncrement="true" startWith="1000">
-                <constraints primaryKey="true" nullable="false"/>
+    
+    <changeSet id="09.1333" author="asharafutdinov">
+        <createTable tableName="TYPE">
+            <column name="TYPE_ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
             </column>
-            <column name="USERNAME" type="varchar(64)">
-                <constraints unique="true" nullable="false"/>
-            </column>
-            <column name="PASSWORD" type="varchar(500)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="EMAIL" type="varchar(255)">
-                <constraints unique="true" nullable="false"/>
-            </column>
-            <column name="FIRST_NAME" type="varchar(100)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="LAST_NAME" type="varchar(100)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="AGE" type="int">
-                <constraints nullable="false"/>
-            </column>
-            <column name="GENDER" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="CITY" type="varchar(100)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="IS_ENABLED" type="boolean" defaultValue="false">
-                <constraints nullable="false"/>
-            </column>
-            <column name="ROLE" type="varchar(25)">
+            <column name="NAME" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-
-    <changeSet id="14:59 19.05.21" author="Artur">
-        <createTable tableName="CATEGORY">
-            <column name="CATEGORY_ID" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
+        
+        <createTable tableName="PRODUCT">
+            <column name="PRODUCT_ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
             </column>
-            <column name="NAME" type="varchar(150)">
+            <column name="NAME" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="PRICE" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_product_type_id" references="TYPE(TYPE_ID)"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="CITY">
+            <column name="CITY_ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="POPULATION" type="int">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
 
-
-    <changeSet id="15:00 19.05.21" author="Artur">
-        <createTable tableName="EVENT">
-            <column name="EVENT_ID" type="uuid">
-                <constraints primaryKey="true" nullable="false"/>
+        <createTable tableName="CINEMA">
+            <column name="CINEMA_ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
             </column>
-            <column name="NAME" type="varchar(150)">
-                <constraints nullable="false"/>
+            <column name="NAME" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
             </column>
-            <column name="DESCRIPTION" type="varchar(500)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="OWNER_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_event_accountId" references="ACCOUNT(ACCOUNT_ID)"/>
-            </column>
-            <column name="CREATED_TIME" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-            <column name="START_TIME" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-            <column name="FINISH_TIME" type="timestamp">
-                <constraints nullable="true"/>
-            </column>
-            <column name="DURATION" type="int">
-                <constraints nullable="true"/>
-            </column>
-            <column name="MAX_NUMBER_OF_PARTICIPANTS" type="int">
-                <constraints nullable="false"/>
-            </column>
-            <column name="PRIVATE_ACCESS" type="boolean">
-                <constraints nullable="false"/>
-            </column>
-            <column name="LATITUDE" type="double">
-                <constraints nullable="false"/>
-            </column>
-            <column name="LONGITUDE" type="double">
-                <constraints nullable="false"/>
-            </column>
-            <column name="CATEGORY_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_event_categoryId" references="CATEGORY(CATEGORY_ID)"/>
+            <column name="CITY_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_cinema_city_id" references="CITY(CITY_ID)"/>
             </column>
         </createTable>
-    </changeSet>
 
-    <changeSet id="15:01 19.05.21" author="Artur">
-        <createTable tableName="EVENT_MEMBER">
-            <column name="EVENT_MEMBER_ID" type="uuid">
-                <constraints primaryKey="true" nullable="false"/>
+        <createTable tableName="BILL">
+            <column name="BILL_ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
             </column>
-            <column name="EVENT_ID" type="uuid">
-                <constraints nullable="false" foreignKeyName="fk_event_member_eventId" references="EVENT(EVENT_ID)"/>
+            <column name="BILL_DATE" type="timestamp">
+                <constraints nullable="false"/>
             </column>
-            <column name="ACCOUNT_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_event_account_accountId"
-                             references="ACCOUNT(ACCOUNT_ID)"/>
-            </column>
-            <column name="ROLE" type="varchar(25)">
+            <column name="DISCOUNT" type="double">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
 
-
-    <changeSet id="15:02 19.05.21" author="Artur">
-        <insert tableName="CATEGORY">
-            <column name="NAME" value="Собрание"/>
-        </insert>
-        <insert tableName="CATEGORY">
-            <column name="NAME" value="Настольные игры"/>
-        </insert>
-        <insert tableName="CATEGORY">
-            <column name="NAME" value="Тусич"/>
-        </insert>
-        <insert tableName="CATEGORY">
-            <column name="NAME" value="Утренник"/>
-        </insert>
-        <insert tableName="CATEGORY">
-            <column name="NAME" value="Спорт"/>
-        </insert>
-    </changeSet>
-
-    <changeSet id="15:49" author="Artur">
-        <insert tableName="ACCOUNT">
-            <column name="ACCOUNT_ID" value="1"/>
-            <column name="USERNAME" value="ADMIN"/>
-            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
-            <column name="EMAIL" value="admin@ya.ru"/>
-            <column name="FIRST_NAME" value="ADMIN"/>
-            <column name="LAST_NAME" value="ADMIN"/>
-            <column name="AGE" value="22"/>
-            <column name="GENDER" value="MALE"/>
-            <column name="CITY" value="KAZAN"/>
-            <column name="IS_ENABLED" value="TRUE"/>
-            <column name="ROLE" value="ADMIN"/>
-        </insert>
-    </changeSet>
-
-    <changeSet id="7" author="eugene">
-        <createTable tableName="INVITE_REQUEST">
-            <column name="INVITE_REQUEST_ID" type="uuid">
-                <constraints primaryKey="true" nullable="false"/>
+        <createTable tableName="SALE">
+            <column name="SALE_ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
             </column>
-            <column name="EVENT_ID" type="uuid">
-                <constraints nullable="false" foreignKeyName="fk_invite_request_eventId" references="EVENT(EVENT_ID)"/>
-            </column>
-            <column name="ACCOUNT_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_invite_request_accountId"
-                             references="ACCOUNT(ACCOUNT_ID)"/>
-            </column>
-            <column name="DESCRIPTION" type="varchar(256)"/>
-            <column name="INVITE_STATUS" type="varchar(64)"/>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="05061453" author="eugene">
-        <createTable tableName="CHAT_ROOM">
-            <column name="CHAT_ROOM_ID" type="uuid">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="KEY" type="varchar(255)">
+            <column name="PRICE" type="double">
                 <constraints nullable="false"/>
             </column>
-            <column name="TYPE" type="varchar(255)">
+            <column name="COUNT" type="int">
                 <constraints nullable="false"/>
+            </column>
+            <column name="CITY_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_cinema_city_id" references="CITY(CITY_ID)"/>
+            </column>
+            <column name="PRODUCT_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_sale_product" references="PRODUCT(PRODUCT_ID)"/>
             </column>
         </createTable>
-    </changeSet>
 
-    <changeSet id="05061449" author="eugene">
-        <createTable tableName="CHAT_MESSAGE">
-            <column name="CHAT_MESSAGE_ID" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
+        <createTable tableName="BILL_SALES">
+            <column name="BILL_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_bill_sales_bill" references="BILL(BILL_ID)"/>
             </column>
-            <column name="TEXT" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="CREATE_TIME" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-            <column name="FINISH_TIME" type="timestamp"/>
-            <column name="AUTHOR_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_chat_message_account_id"
-                             references="ACCOUNT(ACCOUNT_ID)"/>
-            </column>
-            <column name="ROOM_ID" type="uuid">
-                <constraints nullable="false" foreignKeyName="fk_chat_message_chat_room_id"
-                             references="CHAT_ROOM(CHAT_ROOM_ID)"/>
+            <column name="SALE_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_bill_sales_sale" references="SALE(SALE_ID)"/>
             </column>
         </createTable>
+
+        <addUniqueConstraint tableName="BILL_SALES" columnNames="BILL_ID,SALE_ID"/>
     </changeSet>
 
-    <changeSet id="07061059" author="eugene">
-        <createTable tableName="FILE_INFO">
-            <column name="FILE_INFO_ID" type="uuid">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="FILENAME" type="varchar(512)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="CONTENT_TYPE" type="varchar(512)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="PATH" type="varchar(2048)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="SIZE" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="CREATE_TIME" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-            <column name="FINISH_TIME" type="timestamp"/>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="07061734" author="Artur">
-        <addColumn tableName="ACCOUNT">
-            <column name="FILE_INFO_ID" type="uuid">
-                <constraints nullable="true" foreignKeyName="fk_account_file_info_id"
-                             references="FILE_INFO(FILE_INFO_ID)"/>
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="08061031" author="Artur">
-        <insert tableName="ACCOUNT">
-            <column name="ACCOUNT_ID" value="2"/>
-            <column name="USERNAME" value="USER"/>
-            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
-            <column name="EMAIL" value="user@ya.ru"/>
-            <column name="FIRST_NAME" value="USER"/>
-            <column name="LAST_NAME" value="USER"/>
-            <column name="AGE" value="22"/>
-            <column name="GENDER" value="MALE"/>
-            <column name="CITY" value="KAZAN"/>
-            <column name="IS_ENABLED" value="TRUE"/>
-            <column name="ROLE" value="USER"/>
+    <changeSet id="09.1417" author="asharafutdinov">
+        <insert tableName="TYPE">
+            <column name="TYPE_ID">0</column>
+            <column name="NAME">Билет</column>
         </insert>
-    </changeSet>
-
-<!--    <changeSet id="08061032" author="Artur">-->
-<!--        <insert tableName="EVENT_MEMBER">-->
-<!--            <column name="EVENT_ID" value="aea7911b-17bc-4af4-873d-4a189169bdd3"/>-->
-<!--            <column name="EVENT_MEMBER_ID" value="3b274a76-c82c-11eb-b8bc-0242ac130003"/>-->
-<!--            <column name="ACCOUNT_ID" value="5"/>-->
-<!--            <column name="ROLE" value="USER"/>-->
-<!--        </insert>-->
-<!--    </changeSet>-->
-
-    <changeSet id="08061654" author="Artur">
-        <addColumn tableName="INVITE_REQUEST">
-            <column name="CREATE_TIME" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-        </addColumn>
-        <addColumn tableName="INVITE_REQUEST">
-            <column name="FINISH_TIME" type="timestamp">
-                <constraints nullable="true"/>
-            </column>
-        </addColumn>
-
-    </changeSet>
-
-    <changeSet id="08061903" author="Artur">
-        <insert tableName="ACCOUNT">
-            <column name="ACCOUNT_ID" value="3"/>
-            <column name="USERNAME" value="Artur"/>
-            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
-            <column name="EMAIL" value="artur@ya.ru"/>
-            <column name="FIRST_NAME" value="Артур"/>
-            <column name="LAST_NAME" value="Артуров"/>
-            <column name="AGE" value="22"/>
-            <column name="GENDER" value="MALE"/>
-            <column name="CITY" value="KAZAN"/>
-            <column name="IS_ENABLED" value="TRUE"/>
-            <column name="ROLE" value="USER"/>
+        <insert tableName="TYPE">
+            <column name="TYPE_ID">1</column>
+            <column name="NAME">Еда</column>
         </insert>
-        <insert tableName="ACCOUNT">
-            <column name="ACCOUNT_ID" value="4"/>
-            <column name="USERNAME" value="Eugene"/>
-            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
-            <column name="EMAIL" value="evgeny@ya.ru"/>
-            <column name="FIRST_NAME" value="Евгений"/>
-            <column name="LAST_NAME" value="Иванов"/>
-            <column name="AGE" value="21"/>
-            <column name="GENDER" value="MALE"/>
-            <column name="CITY" value="KAZAN"/>
-            <column name="IS_ENABLED" value="TRUE"/>
-            <column name="ROLE" value="USER"/>
+        <insert tableName="TYPE">
+            <column name="TYPE_ID">2</column>
+            <column name="NAME">Напиток</column>
         </insert>
-        <insert tableName="ACCOUNT">
-            <column name="ACCOUNT_ID" value="5"/>
-            <column name="USERNAME" value="Artem"/>
-            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
-            <column name="EMAIL" value="artem@ya.ru"/>
-            <column name="FIRST_NAME" value="Артём"/>
-            <column name="LAST_NAME" value="Артёмов"/>
-            <column name="AGE" value="23"/>
-            <column name="GENDER" value="MALE"/>
-            <column name="CITY" value="KAZAN"/>
-            <column name="IS_ENABLED" value="TRUE"/>
-            <column name="ROLE" value="USER"/>
+        <insert tableName="TYPE">
+            <column name="TYPE_ID">3</column>
+            <column name="NAME">Аксессуар</column>
         </insert>
-        <insert tableName="ACCOUNT">
-            <column name="ACCOUNT_ID" value="6"/>
-            <column name="USERNAME" value="Nikita"/>
-            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
-            <column name="EMAIL" value="nikita@ya.ru"/>
-            <column name="FIRST_NAME" value="Никита"/>
-            <column name="LAST_NAME" value="Никитич"/>
-            <column name="AGE" value="24"/>
-            <column name="GENDER" value="MALE"/>
-            <column name="CITY" value="KAZAN"/>
-            <column name="IS_ENABLED" value="TRUE"/>
-            <column name="ROLE" value="USER"/>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME">Детский билет</column>
+            <column name="TYPE_ID">0</column>
+            <column name="PRICE">150</column>
         </insert>
-        <insert tableName="ACCOUNT">
-            <column name="ACCOUNT_ID" value="7"/>
-            <column name="USERNAME" value="Dinar"/>
-            <column name="PASSWORD" value="$2y$12$wdplZEAYZY/sIw5E7wXX4uvlRMRSBwLJ7keAINYIgdntGkJiPCvGi"/>
-            <column name="EMAIL" value="dinar@ya.ru"/>
-            <column name="FIRST_NAME" value="Динар"/>
-            <column name="LAST_NAME" value="Динарыч"/>
-            <column name="AGE" value="20"/>
-            <column name="GENDER" value="MALE"/>
-            <column name="CITY" value="KAZAN"/>
-            <column name="IS_ENABLED" value="TRUE"/>
-            <column name="ROLE" value="USER"/>
+        <insert tableName="PRODUCT">
+            <column name="NAME">Взрослый билет</column>
+            <column name="TYPE_ID">0</column>
+            <column name="PRICE">250</column>
+        </insert>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME">Маленький попкорн</column>
+            <column name="TYPE_ID">1</column>
+            <column name="PRICE">200</column>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME">Средний попкорн</column>
+            <column name="TYPE_ID">1</column>
+            <column name="PRICE">330</column>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME">Большой попкорн</column>
+            <column name="TYPE_ID">1</column>
+            <column name="PRICE">450</column>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME">Чипсы</column>
+            <column name="TYPE_ID">1</column>
+            <column name="PRICE">200</column>
+        </insert>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME">Кола</column>
+            <column name="TYPE_ID">2</column>
+            <column name="PRICE">150</column>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME">Фанта</column>
+            <column name="TYPE_ID">2</column>
+            <column name="PRICE">150</column>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME">Сок</column>
+            <column name="TYPE_ID">2</column>
+            <column name="PRICE">150</column>
+        </insert>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME">Игрушка</column>
+            <column name="TYPE_ID">3</column>
+            <column name="PRICE">150</column>
         </insert>
     </changeSet>
-
-    <changeSet id="20:27 01.06.21" author="Artur">
-        <insert tableName="EVENT">
-            <column name="EVENT_ID" value="04630c6a-a2fd-4e4e-95bd-6724b8bfbaa1"/>
-            <column name="NAME" value="Собрание клуба"/>
-            <column name="DESCRIPTION" value="Обсудим новый фильм"/>
-            <column name="OWNER_ID" value="4"/>
-            <column name="CREATED_TIME" value="2021-06-01 20:18:32.85"/>
-            <column name="START_TIME" value="2021-06-10 20:18:00"/>
-            <column name="DURATION" value="90"/>
-            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="5"/>
-            <column name="PRIVATE_ACCESS" value="true"/>
-            <column name="LATITUDE" value="55.799492867367455"/>
-            <column name="LONGITUDE" value="49.18423991127491"/>
-            <column name="CATEGORY_ID" value="1"/>
-        </insert>
-        <insert tableName="EVENT">
-            <column name="EVENT_ID" value="7e8aaef8-9f48-4c15-a996-80223dd77761"/>
-            <column name="NAME" value="Настольные игры"/>
-            <column name="DESCRIPTION" value="Играем в Судный День"/>
-            <column name="OWNER_ID" value="3"/>
-            <column name="CREATED_TIME" value="2021-06-01 20:17:35.835"/>
-            <column name="START_TIME" value="2021-06-26 20:17:00"/>
-            <column name="DURATION" value="90"/>
-            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="12"/>
-            <column name="PRIVATE_ACCESS" value="false"/>
-            <column name="LATITUDE" value="55.797208387325206"/>
-            <column name="LONGITUDE" value="49.18490509911059"/>
-            <column name="CATEGORY_ID" value="2"/>
-        </insert>
-        <insert tableName="EVENT">
-            <column name="EVENT_ID" value="7eb9be7a-c1e8-419d-a3b1-6071b04e8832"/>
-            <column name="NAME" value="Вечеринка в коттедже"/>
-            <column name="DESCRIPTION" value="Немножко выпьем"/>
-            <column name="OWNER_ID" value="4"/>
-            <column name="CREATED_TIME" value="2021-06-01 20:14:58.53"/>
-            <column name="START_TIME" value="2021-07-02 20:14:00"/>
-            <column name="DURATION" value="360"/>
-            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="17"/>
-            <column name="PRIVATE_ACCESS" value="true"/>
-            <column name="LATITUDE" value="55.79737156893456"/>
-            <column name="LONGITUDE" value="49.18664249999999"/>
-            <column name="CATEGORY_ID" value="3"/>
-        </insert>
-        <insert tableName="EVENT">
-            <column name="EVENT_ID" value="a421691f-27ab-40d1-8f16-ed8dc649631d"/>
-            <column name="NAME" value="Утренняя пробежка"/>
-            <column name="DESCRIPTION" value="Небольшая пробежка утром"/>
-            <column name="OWNER_ID" value="5"/>
-            <column name="CREATED_TIME" value="2021-06-01 20:19:27.761"/>
-            <column name="START_TIME" value="2021-06-20 20:19:00"/>
-            <column name="DURATION" value="12"/>
-            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="10"/>
-            <column name="PRIVATE_ACCESS" value="false"/>
-            <column name="LATITUDE" value="55.79963576073546"/>
-            <column name="LONGITUDE" value="49.189884737133795"/>
-            <column name="CATEGORY_ID" value="5"/>
-        </insert>
-        <insert tableName="EVENT">
-            <column name="EVENT_ID" value="0f359f97-af5d-4ec2-bb8f-1d1c545d429e"/>
-            <column name="NAME" value="Турники"/>
-            <column name="DESCRIPTION" value="Занимаеся спортом!"/>
-            <column name="OWNER_ID" value="5"/>
-            <column name="CREATED_TIME" value="2021-06-01 20:24:51.188"/>
-            <column name="START_TIME" value="2021-06-10 20:24:00"/>
-            <column name="DURATION" value="1"/>
-            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="12"/>
-            <column name="PRIVATE_ACCESS" value="false"/>
-            <column name="LATITUDE" value="55.760931915438825"/>
-            <column name="LONGITUDE" value="49.23209935426694"/>
-            <column name="CATEGORY_ID" value="5"/>
-        </insert>
-        <insert tableName="EVENT">
-            <column name="EVENT_ID" value="9118802d-7e34-4fd7-a3d0-496008536f6a"/>
-            <column name="NAME" value="Утренник в садике"/>
-            <column name="DESCRIPTION" value="Спектакль Буратино"/>
-            <column name="OWNER_ID" value="4"/>
-            <column name="CREATED_TIME" value="2021-06-01 20:21:02.443"/>
-            <column name="START_TIME" value="2021-06-27 20:20:00"/>
-            <column name="DURATION" value="5"/>
-            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="2"/>
-            <column name="PRIVATE_ACCESS" value="true"/>
-            <column name="LATITUDE" value="55.7922613589641"/>
-            <column name="LONGITUDE" value="49.20297592878326"/>
-            <column name="CATEGORY_ID" value="4"/>
-        </insert>
-        <insert tableName="EVENT">
-            <column name="EVENT_ID" value="ae960385-e145-4b60-860e-770744d751ce"/>
-            <column name="NAME" value="Коктейльная вечеринка"/>
-            <column name="DESCRIPTION" value="Бывший бармен поражает своими навывыками"/>
-            <column name="OWNER_ID" value="7"/>
-            <column name="CREATED_TIME" value="2021-06-01 20:27:14.624"/>
-            <column name="START_TIME" value="2021-06-19 20:26:00"/>
-            <column name="DURATION" value="1080"/>
-            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="4"/>
-            <column name="PRIVATE_ACCESS" value="true"/>
-            <column name="LATITUDE" value="55.73729784937051"/>
-            <column name="LONGITUDE" value="49.15547896081728"/>
-            <column name="CATEGORY_ID" value="3"/>
-        </insert>
-        <insert tableName="EVENT">
-            <column name="EVENT_ID" value="aea7911b-17bc-4af4-873d-4a189169bdd3"/>
-            <column name="NAME" value="Поездка на дачу"/>
-            <column name="DESCRIPTION" value="Нужна помощь с картошкой:)"/>
-            <column name="OWNER_ID" value="3"/>
-            <column name="CREATED_TIME" value="2021-06-01 20:22:47.105"/>
-            <column name="START_TIME" value="2021-06-26 20:21:00"/>
-            <column name="DURATION" value="4320"/>
-            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="5"/>
-            <column name="PRIVATE_ACCESS" value="true"/>
-            <column name="LATITUDE" value="55.812091289190526"/>
-            <column name="LONGITUDE" value="48.51677972150417"/>
-            <column name="CATEGORY_ID" value="3"/>
-        </insert>
-        <insert tableName="EVENT">
-            <column name="EVENT_ID" value="e09d1522-f657-450d-b1a1-ef2719c95781"/>
-            <column name="NAME" value="Байкалище"/>
-            <column name="DESCRIPTION" value="Собираемся прокатиться на катере"/>
-            <column name="OWNER_ID" value="6"/>
-            <column name="CREATED_TIME" value="2021-06-01 20:23:39.747"/>
-            <column name="START_TIME" value="2021-06-20 20:23:00"/>
-            <column name="DURATION" value="10000"/>
-            <column name="MAX_NUMBER_OF_PARTICIPANTS" value="2"/>
-            <column name="PRIVATE_ACCESS" value="false"/>
-            <column name="LATITUDE" value="53.71029960297948"/>
-            <column name="LONGITUDE" value="106.83132749999984"/>
-            <column name="CATEGORY_ID" value="5"/>
-        </insert>
-
-        <!--        <insert tableName="EVENT">-->
-        <!--            <column name="NAME" value=""/>-->
-        <!--            <column name="DESCRIPTION" value=""/>-->
-        <!--            <column name="OWNER_ID" value=""/>-->
-        <!--            <column name="CREATED_TIME" value=""/>-->
-        <!--            <column name="START_TIME" value=""/>-->
-        <!--            <column name="DURATION" value=""/>-->
-        <!--            <column name="MAX_NUMBER_OF_PARTICIPANTS" value=""/>-->
-        <!--            <column name="PRIVATE_ACCESS" value=""/>-->
-        <!--            <column name="COORDINATES" value=""/>-->
-        <!--            <column name="CATEGORY_ID" value=""/>-->
-        <!--        </insert>-->
-
-        <insert tableName="EVENT_MEMBER">
-            <column name="EVENT_ID" value="7eb9be7a-c1e8-419d-a3b1-6071b04e8832"/>
-            <column name="EVENT_MEMBER_ID" value="0652c768-6c44-4f09-a56a-ec17354375ac"/>
-            <column name="ACCOUNT_ID" value="4"/>
-            <column name="ROLE" value="ADMIN"/>
-        </insert>
-        <insert tableName="EVENT_MEMBER">
-            <column name="EVENT_ID" value="e09d1522-f657-450d-b1a1-ef2719c95781"/>
-            <column name="EVENT_MEMBER_ID" value="17fd8804-4084-4c69-be01-c1bf7b7688be"/>
-            <column name="ACCOUNT_ID" value="6"/>
-            <column name="ROLE" value="ADMIN"/>
-        </insert>
-        <insert tableName="EVENT_MEMBER">
-            <column name="EVENT_ID" value="a421691f-27ab-40d1-8f16-ed8dc649631d"/>
-            <column name="EVENT_MEMBER_ID" value="27d09065-e4cd-4e8e-b7a0-d037ff5a78b7"/>
-            <column name="ACCOUNT_ID" value="5"/>
-            <column name="ROLE" value="ADMIN"/>
-        </insert>
-        <insert tableName="EVENT_MEMBER">
-            <column name="EVENT_ID" value="0f359f97-af5d-4ec2-bb8f-1d1c545d429e"/>
-            <column name="EVENT_MEMBER_ID" value="299b211a-dfbd-4d39-bfb9-b024479634fb"/>
-            <column name="ACCOUNT_ID" value="5"/>
-            <column name="ROLE" value="ADMIN"/>
-        </insert>
-        <insert tableName="EVENT_MEMBER">
-            <column name="EVENT_ID" value="7e8aaef8-9f48-4c15-a996-80223dd77761"/>
-            <column name="EVENT_MEMBER_ID" value="5ea6b235-e7bd-4297-8aa3-9979e898718e"/>
-            <column name="ACCOUNT_ID" value="3"/>
-            <column name="ROLE" value="ADMIN"/>
-        </insert>
-        <insert tableName="EVENT_MEMBER">
-            <column name="EVENT_ID" value="ae960385-e145-4b60-860e-770744d751ce"/>
-            <column name="EVENT_MEMBER_ID" value="612ebf27-c980-4941-bdd9-7b710ac36ba0"/>
-            <column name="ACCOUNT_ID" value="7"/>
-            <column name="ROLE" value="ADMIN"/>
-        </insert>
-        <insert tableName="EVENT_MEMBER">
-            <column name="EVENT_ID" value="aea7911b-17bc-4af4-873d-4a189169bdd3"/>
-            <column name="EVENT_MEMBER_ID" value="6d182483-1ccd-4b67-970f-8e4536f7ce79"/>
-            <column name="ACCOUNT_ID" value="3"/>
-            <column name="ROLE" value="ADMIN"/>
-        </insert>
-        <insert tableName="EVENT_MEMBER">
-            <column name="EVENT_ID" value="9118802d-7e34-4fd7-a3d0-496008536f6a"/>
-            <column name="EVENT_MEMBER_ID" value="9e128f2e-1fb8-4419-a48a-c7fedeb26a1b"/>
-            <column name="ACCOUNT_ID" value="4"/>
-            <column name="ROLE" value="ADMIN"/>
-        </insert>
-        <insert tableName="EVENT_MEMBER">
-            <column name="EVENT_ID" value="04630c6a-a2fd-4e4e-95bd-6724b8bfbaa1"/>
-            <column name="EVENT_MEMBER_ID" value="b9fc49ef-7d89-4e1a-9d35-0bf7c0f7ef53"/>
-            <column name="ACCOUNT_ID" value="4"/>
-            <column name="ROLE" value="ADMIN"/>
-        </insert>
-
-
-        <!--        <insert tableName="EVENT_MEMBER">-->
-        <!--            <column name="EVENT_ID" value=""/>-->
-        <!--            <column name="EVENT_MEMBER_ID" value=""/>-->
-        <!--            <column name="ACCOUNT_ID" value="1"/>-->
-        <!--            <column name="ROLE" value="ADMIN"/>-->
-        <!--        </insert>-->
-
-    </changeSet>
-
-    <changeSet id="11061925" author="Artur">
-        <insert tableName="FILE_INFO">
-            <column name="FILE_INFO_ID" value="e4fe2d4c-cad1-11eb-b8bc-0242ac130003"/>
-            <column name="FILENAME" value="default.jpg"/>
-            <column name="CONTENT_TYPE" value="image/jpg"/>
-            <column name="PATH" value="src/main/resources/static/default.jpg"/>
-            <column name="SIZE" value="8911"/>
-            <column name="CREATE_TIME" value="2021-06-11 19:06:08.302"/>
-        </insert>
-    </changeSet>
-
 
 </databaseChangeLog>
