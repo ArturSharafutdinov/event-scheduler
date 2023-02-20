@@ -6,51 +6,66 @@
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     
     <changeSet id="09.1333" author="asharafutdinov">
-        <createTable tableName="TYPE">
-            <column name="TYPE_ID" type="bigint" autoIncrement="true">
+        <createTable tableName="GENRE">
+            <column name="GENRE_ID" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="NAME" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        
-        <createTable tableName="PRODUCT">
-            <column name="PRODUCT_ID" type="bigint" autoIncrement="true">
+
+        <createTable tableName="COMPANY">
+            <column name="COMPANY_ID" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="NAME" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
+            </column>
+            <column name="BIRTHDAY" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="GAME">
+            <column name="GAME_ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="varchar(255)">
+                <constraints nullable="false"/>
             </column>
             <column name="PRICE" type="double">
                 <constraints nullable="false"/>
             </column>
-            <column name="TYPE_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_product_type_id" references="TYPE(TYPE_ID)"/>
+            <column name="GENRE_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_game_genre_id" references="GENRE(GENRE_ID)"/>
+            </column>
+            <column name="COMPANY_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_game_company_id" references="COMPANY(COMPANY_ID)"/>
             </column>
         </createTable>
 
-        <createTable tableName="CITY">
-            <column name="CITY_ID" type="bigint" autoIncrement="true">
+        <createTable tableName="PLATFORM">
+            <column name="PLATFORM_ID" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="NAME" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="POPULATION" type="int">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <createTable tableName="CINEMA">
-            <column name="CINEMA_ID" type="bigint" autoIncrement="true">
+        <createTable tableName="SERVICE">
+            <column name="SERVICE_ID" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="NAME" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
-            <column name="CITY_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_cinema_city_id" references="CITY(CITY_ID)"/>
+            <column name="USERS" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PLATFORM_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_service_platform_id" references="PLATFORM(PLATFORM_ID)"/>
             </column>
         </createTable>
 
@@ -61,14 +76,20 @@
             <column name="BILL_DATE" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="DISCOUNT" type="double">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
 
         <createTable tableName="SALE">
             <column name="SALE_ID" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
+            </column>
+            <column name="SERVICE_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_sale_service_id" references="SERVICE(SERVICE_ID)"/>
+            </column>
+            <column name="GAME_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_sale_game_id" references="GAME(GAME_ID)"/>
+            </column>
+            <column name="BILL_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_sale_bill_id" references="BILL(BILL_ID)"/>
             </column>
             <column name="PRICE" type="double">
                 <constraints nullable="false"/>
@@ -76,97 +97,8 @@
             <column name="COUNT" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="CITY_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_cinema_city_id" references="CITY(CITY_ID)"/>
-            </column>
-            <column name="PRODUCT_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_sale_product" references="PRODUCT(PRODUCT_ID)"/>
-            </column>
         </createTable>
-
-        <createTable tableName="BILL_SALES">
-            <column name="BILL_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_bill_sales_bill" references="BILL(BILL_ID)"/>
-            </column>
-            <column name="SALE_ID" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_bill_sales_sale" references="SALE(SALE_ID)"/>
-            </column>
-        </createTable>
-
-        <addUniqueConstraint tableName="BILL_SALES" columnNames="BILL_ID,SALE_ID"/>
-    </changeSet>
-
-    <changeSet id="09.1417" author="asharafutdinov">
-        <insert tableName="TYPE">
-            <column name="TYPE_ID">0</column>
-            <column name="NAME">Билет</column>
-        </insert>
-        <insert tableName="TYPE">
-            <column name="TYPE_ID">1</column>
-            <column name="NAME">Еда</column>
-        </insert>
-        <insert tableName="TYPE">
-            <column name="TYPE_ID">2</column>
-            <column name="NAME">Напиток</column>
-        </insert>
-        <insert tableName="TYPE">
-            <column name="TYPE_ID">3</column>
-            <column name="NAME">Аксессуар</column>
-        </insert>
-
-        <insert tableName="PRODUCT">
-            <column name="NAME">Детский билет</column>
-            <column name="TYPE_ID">0</column>
-            <column name="PRICE">150</column>
-        </insert>
-        <insert tableName="PRODUCT">
-            <column name="NAME">Взрослый билет</column>
-            <column name="TYPE_ID">0</column>
-            <column name="PRICE">250</column>
-        </insert>
-
-        <insert tableName="PRODUCT">
-            <column name="NAME">Маленький попкорн</column>
-            <column name="TYPE_ID">1</column>
-            <column name="PRICE">200</column>
-        </insert>
-        <insert tableName="PRODUCT">
-            <column name="NAME">Средний попкорн</column>
-            <column name="TYPE_ID">1</column>
-            <column name="PRICE">330</column>
-        </insert>
-        <insert tableName="PRODUCT">
-            <column name="NAME">Большой попкорн</column>
-            <column name="TYPE_ID">1</column>
-            <column name="PRICE">450</column>
-        </insert>
-        <insert tableName="PRODUCT">
-            <column name="NAME">Чипсы</column>
-            <column name="TYPE_ID">1</column>
-            <column name="PRICE">200</column>
-        </insert>
-
-        <insert tableName="PRODUCT">
-            <column name="NAME">Кола</column>
-            <column name="TYPE_ID">2</column>
-            <column name="PRICE">150</column>
-        </insert>
-        <insert tableName="PRODUCT">
-            <column name="NAME">Фанта</column>
-            <column name="TYPE_ID">2</column>
-            <column name="PRICE">150</column>
-        </insert>
-        <insert tableName="PRODUCT">
-            <column name="NAME">Сок</column>
-            <column name="TYPE_ID">2</column>
-            <column name="PRICE">150</column>
-        </insert>
-
-        <insert tableName="PRODUCT">
-            <column name="NAME">Игрушка</column>
-            <column name="TYPE_ID">3</column>
-            <column name="PRICE">150</column>
-        </insert>
+        
     </changeSet>
 
 </databaseChangeLog>

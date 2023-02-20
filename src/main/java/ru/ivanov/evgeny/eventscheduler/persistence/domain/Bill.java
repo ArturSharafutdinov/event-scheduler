@@ -15,15 +15,7 @@ public class Bill extends LongIdEntity {
     @Column(name = "BILL_DATE", nullable = false)
     private Date billDate;
 
-    @Column(name = "DISCOUNT", nullable = false)
-    private Double discount;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "BILL_SALES",
-            joinColumns = @JoinColumn(name = "BILL_ID"),
-            inverseJoinColumns =  @JoinColumn(name = "SALE_ID")
-    )
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bill", cascade = {CascadeType.ALL})
     private List<Sale> sales = new ArrayList<>();
 
     public Date getBillDate() {
@@ -32,14 +24,6 @@ public class Bill extends LongIdEntity {
 
     public void setBillDate(Date checkDate) {
         this.billDate = checkDate;
-    }
-
-    public Double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
     }
 
     public List<Sale> getSales() {

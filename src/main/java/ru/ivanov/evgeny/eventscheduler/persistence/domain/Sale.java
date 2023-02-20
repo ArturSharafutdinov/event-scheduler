@@ -3,8 +3,6 @@ package ru.ivanov.evgeny.eventscheduler.persistence.domain;
 import ru.ivanov.evgeny.eventscheduler.persistence.common.identity.LongIdEntity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "SALE")
@@ -18,12 +16,16 @@ public class Sale extends LongIdEntity {
     private Integer count;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
-    private Product product;
+    @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID")
+    private Game game;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CITY_ID", nullable = false)
-    private City city;
+    @JoinColumn(name = "SERVICE_ID", nullable = false)
+    private Service service;
+
+    @ManyToOne
+    @JoinColumn(name="BILL_ID", referencedColumnName = "BILL_ID")
+    private Bill bill;
 
     public Double getPrice() {
         return price;
@@ -33,27 +35,35 @@ public class Sale extends LongIdEntity {
         this.price = price;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
+
     public Integer getCount() {
         return count;
     }
 
     public void setCount(Integer count) {
         this.count = count;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
     }
 }

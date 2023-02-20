@@ -85,7 +85,7 @@ public class FileServiceImpl implements FileService {
             resource = loadFileAsResource(fileInfo.getPath());
         } else throw new IllegalArgumentException("file info by id");
 
-        // Try to determine file's content type
+        // Try to determine file's content genre
         String contentType;
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
@@ -93,7 +93,7 @@ public class FileServiceImpl implements FileService {
             return ResponseEntity.noContent().build();
         }
 
-        // Fallback to the default content type if type could not be determined
+        // Fallback to the default content genre if genre could not be determined
         if (contentType == null) {
             contentType = "application/octet-stream";
         }

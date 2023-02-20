@@ -5,16 +5,20 @@ import ru.ivanov.evgeny.eventscheduler.persistence.common.identity.LongIdEntity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PRODUCT")
-@AttributeOverride(name = "id", column = @Column(name = "PRODUCT_ID"))
-public class Product extends LongIdEntity {
+@Table(name = "GAME")
+@AttributeOverride(name = "id", column = @Column(name = "GAME_ID"))
+public class Game extends LongIdEntity {
 
     @Column(name = "NAME", nullable = false)
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TYPE_ID", nullable = false)
-    private Type type;
+    @JoinColumn(name = "GENRE_ID", nullable = false)
+    private Genre genre;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANY_ID", nullable = false)
+    private Company company;
 
     @Column(name = "PRICE", nullable = false)
     private Double price;
@@ -27,19 +31,27 @@ public class Product extends LongIdEntity {
         this.name = name;
     }
 
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
     public Double getPrice() {
         return price;
     }
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

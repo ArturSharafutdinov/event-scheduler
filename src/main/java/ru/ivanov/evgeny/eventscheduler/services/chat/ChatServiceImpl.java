@@ -44,9 +44,9 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     @Transactional(readOnly = true)
-    public Boolean chatIsAvailable(Account account, ChatRoom.ChatRoomType type, String key) {
+    public Boolean chatIsAvailable(Account account, ChatRoom.ChatRoomType genre, String key) {
 
-        if (ChatRoom.ChatRoomType.EVENT.equals(type)) {
+        if (ChatRoom.ChatRoomType.EVENT.equals(genre)) {
             Event event = simpleDao.findById(Event.class, UUID.fromString(key));
             if (Objects.nonNull(event)) {
                 // является участником мероприятия и чат доступен
@@ -56,7 +56,7 @@ public class ChatServiceImpl implements ChatService {
             return false;
         }
 
-        if (ChatRoom.ChatRoomType.PRIVATE.equals(type)) {
+        if (ChatRoom.ChatRoomType.PRIVATE.equals(genre)) {
             throw new IllegalArgumentException("PRIVATE CHAT IS NOT IMPLEMENTED");
             //TODO
         }
@@ -65,13 +65,13 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     @Transactional
-    public ChatMessageDto sendMessage(Account account, ChatRoom.ChatRoomType type, String key, EditableMessageDto message) {
+    public ChatMessageDto sendMessage(Account account, ChatRoom.ChatRoomType genre, String key, EditableMessageDto message) {
         Assert.state(message.getText().length() < maxMessageLength, "Message too long");
-        Boolean isAvailable = chatIsAvailable(account, type, key);
+        Boolean isAvailable = chatIsAvailable(account, genre, key);
 
         if (!isAvailable) throw new IllegalArgumentException("Chat is not available");
 
-        ChatRoom chatRoom = getChatRoom(type, key);
+        ChatRoom chatRoom = getChatRoom(genre, key);
 
         ChatMessage chatMessage = createMessage(account, chatRoom, message.getText());
 
@@ -80,8 +80,8 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ChatMessageDto> loadMessages(Account account, ChatRoom.ChatRoomType type, String key) {
-        ChatRoom chatRoom = findRoom(type, key);
+    public List<ChatMessageDto> loadMessages(Account account, ChatRoom.ChatRoomType genre, String key) {
+        ChatRoom chatRoom = findRoom(genre, key);
         if (chatRoom != null) {
             List<ChatMessage> chatMessages = chatMessageRepository.findAllByRoomOrderByCreateTime(chatRoom);
             if (CollectionUtils.isNotEmpty(chatMessages)) {
@@ -94,16 +94,16 @@ public class ChatServiceImpl implements ChatService {
         return new ArrayList<>();
     }
 
-    private ChatRoom getChatRoom(ChatRoom.ChatRoomType type, String key) {
-        ChatRoom room = findRoom(type, key);
+    private ChatRoom getChatRoom(ChatRoom.ChatRoomType genre, String key) {
+        ChatRoom room = findRoom(genre, key);
         if (room != null) {
             return room;
         }
-        return createRoom(type, key);
+        return createRoom(genre, key);
     }
 
-    private ChatRoom findRoom(ChatRoom.ChatRoomType type, String key) {
-        return chatRoomRepository.findByTypeAndKey(type, key);
+    private ChatRoom findRoom(ChatRoom.ChatRoomType genre, String key) {
+        return chatRoomRepository.findByTypeAndKey(genre, key);
     }
 
     private ChatMessage createMessage(Account account, ChatRoom chatRoom, String text) {
@@ -116,9 +116,9 @@ public class ChatServiceImpl implements ChatService {
         return chatMessage;
     }
 
-    private ChatRoom createRoom(ChatRoom.ChatRoomType type, String key) {
+    private ChatRoom createRoom(ChatRoom.ChatRoomType genre, String key) {
         ChatRoom chatRoom = new ChatRoom();
-        chatRoom.setType(type);
+        chatRoom.setType(genre);
         chatRoom.setKey(key);
         chatRoomRepository.save(chatRoom);
         return chatRoom;
